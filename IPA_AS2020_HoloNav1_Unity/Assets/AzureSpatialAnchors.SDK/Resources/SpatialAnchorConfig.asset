@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SpatialAnchorConfig
   m_EditorClassIdentifier: 
   authenticationMode: 0
-  spatialAnchorsAccountId: 836118a9-83bd-402b-ad21-1cf4855887d2
-  spatialAnchorsAccountKey: FdLgea2kF/60pbeejM9x/xZoQD2MyJ49aicI+yVevTo=
-  spatialAnchorsAccountDomain: westeurope.mixedreality.azure.com
+  spatialAnchorsAccountId: e00d06ee-0dab-4aee-b51b-9a62c45d72f4
+  spatialAnchorsAccountKey: J7pkGIyQkaEEM+y27Ec/3eKtxLeBCJZPjJfTF/cMRME=
+  spatialAnchorsAccountDomain: westus2.mixedreality.azure.com
   clientId: 
   tenantId: 
