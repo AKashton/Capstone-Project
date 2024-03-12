@@ -331,6 +331,9 @@ public class AnchorManager : MonoBehaviour
 
                 newAnchorPosition.gameObject.GetComponent<UnityEngine.XR.WSA.WorldAnchor>().SetNativeSpatialAnchorPtr(currentCloudAnchor.LocalAnchor);
 
+                Debug.Log($"Local anchor position at '{newAnchorPosition.transform.position}'");
+                OnASAAnchorFound?.Invoke(currentCloudAnchor.Identifier, newAnchorPosition);
+
 #elif UNITY_ANDROID || UNITY_IOS
                 Pose anchorPose = Pose.identity;
                 anchorPose = currentCloudAnchor.GetPose();
@@ -346,8 +349,7 @@ public class AnchorManager : MonoBehaviour
                 OnCreateLocalAnchor?.Invoke();
 
 #endif
-                //Debug.Log($"Local anchor position at '{newAnchorPosition.transform.position}'");
-                //OnASAAnchorFound?.Invoke(currentCloudAnchor.Identifier, newAnchorPosition);
+
 
             });
         }
