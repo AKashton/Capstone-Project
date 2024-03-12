@@ -11,7 +11,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
-using UnityScript.Steps;
 using Debug = UnityEngine.Debug;
 
 public class AnchorMap : MonoBehaviour

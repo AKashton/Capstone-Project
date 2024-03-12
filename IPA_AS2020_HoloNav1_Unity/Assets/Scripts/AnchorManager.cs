@@ -346,8 +346,8 @@ public class AnchorManager : MonoBehaviour
                 OnCreateLocalAnchor?.Invoke();
 
 #endif
-                Debug.Log($"Local anchor position at '{newAnchorPosition.transform.position}'");
-                OnASAAnchorFound?.Invoke(currentCloudAnchor.Identifier, newAnchorPosition);
+                //Debug.Log($"Local anchor position at '{newAnchorPosition.transform.position}'");
+                //OnASAAnchorFound?.Invoke(currentCloudAnchor.Identifier, newAnchorPosition);
 
             });
         }
