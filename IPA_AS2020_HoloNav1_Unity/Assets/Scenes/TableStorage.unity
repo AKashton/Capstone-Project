@@ -16082,9 +16082,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bbab7ee5f3f66140b9064593d6a1ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectionString: 
-  spatialAnchorTableName: spatialAnchors1203
-  adjacentListTableName: adjacentList1203
+  connectionString: DefaultEndpointsProtocol=https;AccountName=spatialanchoreib;AccountKey=2yUGV3ZDlPi4+g1JRTBmJAFGPVO+m91BjQD/FA84jfZlGsY+jHzxYcNx5qa/jI6nhgbgExGgw45G+ASt+SsZUQ==;EndpointSuffix=core.windows.net
+  spatialAnchorTableName: spatialAnchorsEIB
+  adjacentListTableName: adjacentListEIB
   partitionKey: main
   tryCreateTableOnStart: 1
   dialogController: {fileID: 964147407}
