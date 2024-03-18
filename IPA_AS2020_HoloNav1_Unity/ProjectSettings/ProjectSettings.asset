@@ -594,11 +594,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: HoloNav1
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: Assets\WSATestCertificate.pfx
-  metroCertificatePassword: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
+  metroCertificatePassword: YMMBMZ
   metroCertificateSubject: DefaultCompany
   metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 007c993530d8d701
+  metroCertificateNotAfter: 005cb6e44595db01
   metroApplicationDescription: Template_3D
   wsaImages: {}
   metroTileShortName: 
