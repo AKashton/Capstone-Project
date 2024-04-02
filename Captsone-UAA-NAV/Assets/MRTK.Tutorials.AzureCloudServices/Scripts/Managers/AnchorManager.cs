@@ -26,20 +26,14 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public event EventHandler OnPlaceAnchorCanceled;
         
         [Header("Anchor Manager")]
-        [SerializeField]
-        private SpatialAnchorManager cloudManager = default;
+        [SerializeField] private SpatialAnchorManager cloudManager = default;
         [Header("Controller")]
-        [SerializeField]
-        private AnchorPlacementController anchorPlacementController = default;
-        [SerializeField]
-        private AnchorCreationController anchorCreationController = default;
+        [SerializeField] private AnchorPlacementController anchorPlacementController = default;
+        [SerializeField] private AnchorCreationController anchorCreationController = default;
         [Header("UX")]
-        [SerializeField]
-        private AnchorPosition anchorPositionPrefab = default;
-        [SerializeField]
-        private GameObject objectCardPrefab;
-        [SerializeField]
-        private AnchorArrowGuide anchorArrowGuide = default;
+        [SerializeField] private AnchorPosition anchorPositionPrefab = default;
+        [SerializeField] private GameObject objectCardPrefab;
+        [SerializeField] private AnchorArrowGuide anchorArrowGuide = default;
 
         private Dictionary<string, AnchorPosition> activeAnchors = new Dictionary<string, AnchorPosition>();
         private CloudSpatialAnchor currentCloudAnchor;
@@ -106,14 +100,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public void CreateAnchor(Transform indicatorTransform)
         {
             Debug.Log("Anchor position has been set, saving location process started.");
+
             if (Application.isEditor)
-            {
                 CreateAsaAnchorEditor(indicatorTransform);
-            }
             else
-            {
                 CreateAsaAnchor(indicatorTransform);
-            }
         }
 
         /// <summary>
@@ -124,14 +115,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public void FindAnchor(TrackedObject trackedObject)
         {
             currentTrackedObject = trackedObject;
+
             if (Application.isEditor)
-            {
                 FindAsaAnchorEditor();
-            }
             else
-            {
                 FindAsaAnchor();
-            }
         }
 
         private async void CreateAsaAnchorEditor(Transform indicatorTransform)
@@ -142,6 +130,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             var mockAnchorId = Guid.NewGuid().ToString();
             currentTrackedObject.SpatialAnchorId = mockAnchorId;
             activeAnchors.Add(currentTrackedObject.SpatialAnchorId, indicator);
+
             AppDispatcher.Instance().Enqueue(() =>
             {
                 indicator.Init(currentTrackedObject);
@@ -177,9 +166,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             // If the cloud portion of the anchor hasn't been created yet, create it
             if (cna.CloudAnchor == null)
-            {
                 await cna.NativeToCloud();
-            }
 
             // Get the cloud portion of the anchor
             CloudSpatialAnchor localCloudAnchor = cna.CloudAnchor;
@@ -194,9 +181,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 return;
             }
             else
-            {
                 Debug.Log("Local anchor created");
-            }
 
             // Save anchor to cloud
             while (!cloudManager.IsReadyForCreate)
@@ -261,20 +246,15 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         private async void FindAsaAnchor()
         {
-            Debug.Log("\nAnchorManager.FindAsaAnchor()");
-            
-            Debug.Log("\nanchorCreationController.StartProgressIndicatorSession()");
             anchorCreationController.StartProgressIndicatorSession();
 
             if (cloudManager.Session == null)
             {
                 // Creates a new session if one does not exist
-                Debug.Log("\ncloudManager.CreateSessionAsync()");
                 await cloudManager.CreateSessionAsync();
             }
 
             // Starts the session if not already started
-            Debug.Log("\ncloudManager.StartSessionAsync()");
             await cloudManager.StartSessionAsync();
 
             // Create list of anchor IDs to locate
@@ -283,10 +263,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             // Start watching for Anchors
             if (cloudManager != null && cloudManager.Session != null)
-            {
-                Debug.Log("\ncurrentWatcher = cloudManager.Session.CreateWatcher(anchorLocateCriteria)");
                 currentWatcher = cloudManager.Session.CreateWatcher(anchorLocateCriteria);
-            }
             else
             {
                 Debug.Log("Attempt to create watcher failed, no session exists");

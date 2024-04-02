@@ -20,29 +20,19 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public bool IsReady { get; private set; }
         
         [Header("Base Settings")]
-        [SerializeField]
-        private string connectionString = default;
-        [SerializeField]
-        private string projectName = "MyAzurePowerToolsProject";
+        [SerializeField] private string connectionString = default;
+        [SerializeField] private string projectName = "MyAzurePowerToolsProject";
         [Header("Table Settings")]
-        [SerializeField]
-        private string projectsTableName = "projects";
-        [SerializeField]
-        private string trackedObjectsTableName = "objects";
-        [SerializeField]
-        private string partitionKey = "main";
-        [SerializeField]
-        private bool tryCreateTableOnStart = true;
+        [SerializeField] private string projectsTableName = "projects";
+        [SerializeField] private string trackedObjectsTableName = "objects";
+        [SerializeField] private string partitionKey = "main";
+        [SerializeField] private bool tryCreateTableOnStart = true;
         [Header("Blob Settings")]
-        [SerializeField]
-        private string blockBlobContainerName = "tracked-objects-thumbnails";
-        [SerializeField]
-        private bool tryCreateBlobContainerOnStart = true;
+        [SerializeField] private string blockBlobContainerName = "tracked-objects-thumbnails";
+        [SerializeField] private bool tryCreateBlobContainerOnStart = true;
         [Header("Events")]
-        [SerializeField]
-        private UnityEvent onDataManagerReady = default;
-        [SerializeField]
-        private UnityEvent onDataManagerInitFailed = default;
+        [SerializeField] private UnityEvent onDataManagerReady = default;
+        [SerializeField] private UnityEvent onDataManagerInitFailed = default;
 
         private CloudStorageAccount storageAccount;
         private CloudTableClient cloudTableClient;
@@ -53,7 +43,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
         private async void Awake()
         {
-           
             storageAccount = CloudStorageAccount.Parse(connectionString);
             cloudTableClient = storageAccount.CreateCloudTableClient();
             projectsTable = cloudTableClient.GetTableReference(projectsTableName);
@@ -63,13 +52,10 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 try
                 {
                     if (await projectsTable.CreateIfNotExistsAsync())
-                    {
                         Debug.Log($"Created table {projectsTableName}.");
-                    }
+
                     if (await trackedObjectsTable.CreateIfNotExistsAsync())
-                    {
                         Debug.Log($"Created table {trackedObjectsTableName}.");
-                    }
                 }
                 catch (StorageException ex)
                 {
@@ -86,9 +72,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 try
                 {
                     if (await blobContainer.CreateIfNotExistsAsync())
-                    {
                         Debug.Log($"Created container {blockBlobContainerName}.");
-                    }
                 }
                 catch (StorageException ex)
                 {
@@ -116,10 +100,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             var segment = await projectsTable.ExecuteQuerySegmentedAsync(query, null);
 
             var project = segment.Results.FirstOrDefault();
+
             if (project != null)
-            {
                 return project;
-            }
 
             project = new Project()
             {
@@ -155,9 +138,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public async Task<bool> UploadOrUpdate(TrackedObject trackedObject)
         {
             if (string.IsNullOrWhiteSpace(trackedObject.PartitionKey))
-            {
                 trackedObject.PartitionKey = partitionKey;
-            }
             
             var insertOrMergeOperation = TableOperation.InsertOrMerge(trackedObject);
             var result = await trackedObjectsTable.ExecuteAsync(insertOrMergeOperation);
@@ -243,6 +224,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public async Task<byte[]> DownloadBlob(string blobName)
         {
             var blockBlob = blobContainer.GetBlockBlobReference(blobName);
+
             using (var stream = new MemoryStream())
             {
                 await blockBlob.DownloadToStreamAsync(stream);

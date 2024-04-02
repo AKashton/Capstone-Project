@@ -16,21 +16,14 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
     public class ObjectCardViewController : MonoBehaviour
     {
         [Header("Managers")]
-        [SerializeField]
-        private SceneController sceneController;
+        [SerializeField] private SceneController sceneController;
         [Header("UI")]
-        [SerializeField]
-        private TMP_Text objectNameLabel = default;
-        [SerializeField]
-        private TMP_Text descriptionLabel = default;
-        [SerializeField]
-        private TMP_Text messageLabel = default;
-        [SerializeField]
-        private Image thumbnailImage = default;
-        [SerializeField]
-        private Sprite thumbnailPlaceHolderImage = default;
-        [SerializeField]
-        private StatefulInteractable[] buttons = default;
+        [SerializeField] private TMP_Text objectNameLabel = default;
+        [SerializeField] private TMP_Text descriptionLabel = default;
+        [SerializeField] private TMP_Text messageLabel = default;
+        [SerializeField] private Image thumbnailImage = default;
+        [SerializeField] private Sprite thumbnailPlaceHolderImage = default;
+        [SerializeField] private StatefulInteractable[] buttons = default;
         
         private TrackedObject trackedObject;
         private bool isSearchingWithComputerVision;
@@ -39,9 +32,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         private void Awake()
         {
             if (sceneController == null)
-            {
                 sceneController = FindObjectOfType<SceneController>();
-            }
         }
         
         private void OnDisable()
@@ -52,9 +43,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         public async void Init(TrackedObject source)
         {
             if (sceneController == null)
-            {
                 sceneController = FindObjectOfType<SceneController>();
-            }
             
             trackedObject = source;
             objectNameLabel.SetText(this.trackedObject.Name);
@@ -63,28 +52,23 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             objectDetectedWithComputerVision = false;
             
             if (!string.IsNullOrEmpty(this.trackedObject.ThumbnailBlobName))
-            {
                 thumbnailImage.sprite = await LoadThumbnailImage();
-            }
             else
-            {
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
-            }
         }
 
         public async void StartComputerVisionDetection()
         {
             sceneController.StartCamera();
-            if (string.IsNullOrEmpty(trackedObject.CustomVisionTagId) 
-                || string.IsNullOrEmpty(sceneController.CurrentProject.CustomVisionIterationId))
+
+            if (string.IsNullOrEmpty(trackedObject.CustomVisionTagId) || string.IsNullOrEmpty(sceneController.CurrentProject.CustomVisionIterationId))
             {
                 messageLabel.text = "There is no model trained set for this object.";
                 return;
             }
+
             if (isSearchingWithComputerVision || objectDetectedWithComputerVision)
-            {
                 return;
-            }
             
             SetButtonsInteractiveState(false);
             isSearchingWithComputerVision = true;
@@ -100,6 +84,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 messageLabel.text = "No spatial anchor has been specified for this object.";
                 return;
             }
+
             if (sceneController.AnchorManager.CheckIsAnchorActiveForTrackedObject(trackedObject.SpatialAnchorId))
             {
                 messageLabel.text = "The spatial anchor for this object is already spawned.";
@@ -111,7 +96,21 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
             sceneController.AnchorManager.FindAnchor(trackedObject);
         }
+        /*
+        public void StartFindLocation(int pageID)
+        {
+            if (sceneController.AnchorManager.CheckIsAnchorActiveForTrackedObject(trackedObject.SpatialAnchorId))
+            {
+                messageLabel.text = "The spatial anchor for this object is already spawned.";
+                sceneController.AnchorManager.GuideToAnchor(trackedObject.SpatialAnchorId);
+                return;
+            }
 
+            sceneController.StopCamera();
+            sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
+            sceneController.AnchorManager.FindAnchor(trackedObject);
+        }
+        */
         private void HandleOnAnchorFound(object sender, EventArgs e)
         {
             Debug.Log("ObjectCardViewController.HandleOnAnchorFound");
@@ -133,10 +132,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             {
                 await Task.Delay(1000);
                 var image = await sceneController.TakePhoto();
+
                 try
                 {
                     var response = await sceneController.ObjectDetectionManager.DetectImage(image, sceneController.CurrentProject.CustomVisionPublishedModelName);
                     var prediction = response.Predictions.SingleOrDefault(p => p.TagId == trackedObject.CustomVisionTagId);
+
                     if(prediction != null && prediction.Probability > 0.75d)
                     {
                         objectDetectedWithComputerVision = true;
@@ -168,12 +169,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
         private void SetButtonsInteractiveState(bool state)
         {
-            
             foreach (var interactable in buttons)
-            {
                 interactable.enabled = state;
-            }
-            
         }
     }
 }

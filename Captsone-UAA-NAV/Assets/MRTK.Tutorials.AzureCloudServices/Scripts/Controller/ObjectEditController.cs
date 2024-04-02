@@ -19,25 +19,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
     public class ObjectEditController : MonoBehaviour
     {
         [Header("Managers")]
-        [SerializeField]
-        private SceneController sceneController;
+        [SerializeField] private SceneController sceneController;
         [Header("UI Elements")]
-        [SerializeField]
-        private ComputerVisionController computerVisionController = default;
-        [SerializeField]
-        private GameObject hintTextPrefab = default;
-        [SerializeField]
-        private TMP_Text objectNameLabel = default;
-        [SerializeField]
-        private TMP_Text messageLabel = default;
-        [SerializeField]
-        private Text descriptionInputField = default;
-        [SerializeField]
-        private Image thumbnailImage = default;
-        [SerializeField]
-        private Sprite thumbnailPlaceHolderImage = default;
-        [SerializeField]
-        private StatefulInteractable[] buttons = default;
+        [SerializeField] private ComputerVisionController computerVisionController = default;
+        [SerializeField] private GameObject hintTextPrefab = default;
+        [SerializeField] private TMP_Text objectNameLabel = default;
+        [SerializeField] private TMP_Text messageLabel = default;
+        [SerializeField] private Text descriptionInputField = default;
+        [SerializeField] private Image thumbnailImage = default;
+        [SerializeField] private Sprite thumbnailPlaceHolderImage = default;
+        [SerializeField] private StatefulInteractable[] buttons = default;
         [SerializeField] private InputActionReference leftHandTapActionReference = null;
         [SerializeField] private InputActionReference rightHandTapActionReference = null;
 
@@ -48,9 +39,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         private void Awake()
         {
             if (sceneController == null)
-            {
                 sceneController = FindObjectOfType<SceneController>();
-            }
         }
 
         private void Start()
@@ -60,33 +49,26 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 hintTextInstance = Instantiate(hintTextPrefab, Camera.main.transform);
                 hintTextInstance.SetActive(false);
             }
+
             InputAction placementActionRH = GetInputActionFromReference(rightHandTapActionReference);
+
             if (placementActionRH == null)
-            {
                 Debug.Log("Failed to register the tap action for right hand, the action reference was null or contained no action.");
-            }
             else
-            {
                 placementActionRH.performed += StartTap;
-            }
             
             InputAction placementActionLH = GetInputActionFromReference(leftHandTapActionReference);
+
             if (placementActionLH == null)
-            {
                 Debug.Log("Failed to register the tap action for left hand, the action reference was null or contained no action.");
-            }
             else
-            {
                 placementActionLH.performed += StartTap;
-            }
         }
 
         private void StartTap(InputAction.CallbackContext obj)
         {
             if (isWaitingForAirtap)
-            {
                 CapturePhoto();
-            }
         }
 
         /// <summary>
@@ -99,9 +81,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         public static InputAction GetInputActionFromReference(InputActionReference actionReference)
         {
             if (actionReference == null)
-            {
                 return null;
-            }
 
             return actionReference.action;
         }
@@ -116,15 +96,13 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             trackedObject = source;
             objectNameLabel.SetText(trackedObject.Name);
             descriptionInputField.text = trackedObject.Description;
+
             SetButtonsInteractiveState(true);
+
             if (!string.IsNullOrEmpty(trackedObject.ThumbnailBlobName))
-            {
                 thumbnailImage.sprite = await LoadThumbnailImage();
-            }
             else
-            {
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
-            }
             
             sceneController.StartCamera();
         }
@@ -155,18 +133,14 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             if (!string.IsNullOrEmpty(trackedObject.ThumbnailBlobName))
             {
                 if (!await sceneController.DataManager.DeleteBlob(trackedObject.ThumbnailBlobName))
-                {
                     return;
-                }
                 
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
                 trackedObject.ThumbnailBlobName = string.Empty;
                 SaveChanges();
             }
             else
-            {
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
-            }
         }
 
         /// <summary>
@@ -225,9 +199,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         public void HandleOnPointerClick()
         {
             if (isWaitingForAirtap)
-            {
                 CapturePhoto();
-            }
         }
         
         private async void CapturePhoto()
@@ -268,9 +240,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         private void SetButtonsInteractiveState(bool state)
         {
             foreach (var interactable in buttons)
-            {
                 interactable.enabled = state;
-            }
         }
     }
 }

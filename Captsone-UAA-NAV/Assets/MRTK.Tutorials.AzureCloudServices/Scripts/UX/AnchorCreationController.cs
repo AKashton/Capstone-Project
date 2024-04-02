@@ -14,8 +14,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
     public class AnchorCreationController : MonoBehaviour
     {
         
-        [SerializeField]
-        private AnchorManager anchorManager = default;
+        [SerializeField] private AnchorManager anchorManager = default;
 
         private Transform cameraTransform;
         private bool waitingForAnchorCreation;
@@ -36,9 +35,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         public async void StartProgressIndicatorSession()
         {
             if (waitingForAnchorCreation)
-            {
                 return;
-            }
+
             waitingForAnchorCreation = true;
         }
     }

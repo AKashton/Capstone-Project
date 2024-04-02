@@ -24,22 +24,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public AnchorManager AnchorManager => anchorManager;
         
         [Header("Managers")]
-        [SerializeField]
-        private DataManager dataManager = default;
-        [SerializeField]
-        private ObjectDetectionManager objectDetectionManager = default;
-        [SerializeField]
-        private AnchorManager anchorManager = default;
+        [SerializeField] private DataManager dataManager = default;
+        [SerializeField] private ObjectDetectionManager objectDetectionManager = default;
+        [SerializeField] private AnchorManager anchorManager = default;
 
         [Header("Misc Settings")]
-        [SerializeField]
-        private GameObject mainMenu = default;
+        [SerializeField] private GameObject mainMenu = default;
 
         [Header("Events")]
-        [SerializeField]
-        private UnityEvent onCameraStarted = default;
-        [SerializeField]
-        private UnityEvent onCameraStopped = default;
+        [SerializeField] private UnityEvent onCameraStarted = default;
+        [SerializeField] private UnityEvent onCameraStopped = default;
 
 #if UNITY_WSA
         private PhotoCapture photoCapture;
@@ -56,9 +50,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public async void Init()
         {
             if (CurrentProject == null)
-            {
                 CurrentProject = await dataManager.GetOrCreateProject();
-            }
         }
 
         /// <summary>
@@ -67,9 +59,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public void StartCamera()
         {
             if (IsCameraActive)
-            {
                 return;
-            }
 
             Debug.Log("Starting camera system.");
 #if UNITY_WSA
@@ -82,9 +72,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 });
             }
             else
-            {
                 StartPhotoMode();
-            }
 #else
             if (webCamTexture == null)
             {
@@ -95,9 +83,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 webCamTexture.Play();
             }
             else if (!webCamTexture.isPlaying)
-            {
                 webCamTexture.Play();
-            }
 #endif
 
             IsCameraActive = true;
@@ -109,9 +95,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public void StopCamera()
         {
             if (!IsCameraActive)
-            {
                 return;
-            }
 
             Debug.Log("Stopping camera system.");
 #if UNITY_WSA
@@ -160,9 +144,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public Task<byte[]> TakePhoto()
         {
             if (!IsCameraActive)
-            {
                 throw new Exception("Can't take photo when camera is not ready.");
-            }
 
             return Task.Run(() =>
             {
@@ -201,9 +183,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public Task<ImageThumbnail> TakePhotoWithThumbnail()
         {
             if (!IsCameraActive)
-            {
                 throw new Exception("Can't take photo when camera is not ready.");
-            }
 
             return Task.Run(() =>
             {

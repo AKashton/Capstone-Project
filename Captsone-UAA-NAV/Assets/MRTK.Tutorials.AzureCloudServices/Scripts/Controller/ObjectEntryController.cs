@@ -14,34 +14,23 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
     public class ObjectEntryController : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField]
-        private SceneController sceneController;
-        [SerializeField]
-        private GameObject searchObjectPanel = default;
-        [SerializeField]
-        private ObjectEditController objectEditPanel = default;
-        [SerializeField]
-        private ObjectCardViewController objectCardPrefab = default;
+        [SerializeField] private SceneController sceneController;
+        [SerializeField] private GameObject searchObjectPanel = default;
+        [SerializeField] private ObjectEditController objectEditPanel = default;
+        [SerializeField] private ObjectCardViewController objectCardPrefab = default;
         [Header("UI Elements")]
-        [SerializeField]
-        private TMP_Text submitButtonLabel = default;
-        [SerializeField]
-        private TMP_Text hintLabel = default;
-        [SerializeField]
-        private Text inputField = default;
-        [SerializeField]
-        private string loadingText = "Please wait...";
-        [SerializeField]
-        private StatefulInteractable[] buttons = default;
+        [SerializeField] private TMP_Text submitButtonLabel = default;
+        [SerializeField] private TMP_Text hintLabel = default;
+        [SerializeField] private Text inputField = default;
+        [SerializeField] private string loadingText = "Please wait...";
+        [SerializeField] private StatefulInteractable[] buttons = default;
         
         private bool isInSearchMode;
         
         private void Awake()
         {
             if (sceneController == null)
-            {
                 sceneController = FindObjectOfType<SceneController>();
-            }
         }
 
         private void OnEnable()
@@ -72,9 +61,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             }
 
             SetButtonsInteractiveState(false);
+
             if (isInSearchMode)
             {
                 var project = await FindObject(inputField.text);
+
                 if (project != null)
                 {
                     searchObjectPanel.SetActive(false);
@@ -85,6 +76,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             else
             {
                 var project = await CreateObject(inputField.text);
+
                 if (project != null)
                 {
                     searchObjectPanel.SetActive(false);
@@ -92,14 +84,31 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                     objectEditPanel.Init(project);
                 }
             }
+
             SetButtonsInteractiveState(true);
+        }
+
+        public async void SubmitQuery(int pageID)
+        {
+            var project = await FindObject(pageID.ToString());
+
+            if (project != null)
+            {
+                //searchObjectPanel.SetActive(false);
+                var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
+                objectCard.Init(project);
+
+                objectCard.StartFindLocation();
+            }
         }
 
         private async Task<TrackedObject> FindObject(string searchName)
         {
             hintLabel.SetText(loadingText);
             hintLabel.gameObject.SetActive(true);
+
             var projectFromDb = await sceneController.DataManager.FindTrackedObjectByName(searchName);
+
             if (projectFromDb == null)
             {
                 hintLabel.SetText($"No object found with the name '{searchName}'.");
@@ -114,17 +123,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         {
             hintLabel.SetText(loadingText);
             hintLabel.gameObject.SetActive(true);
+
             var trackedObject = await sceneController.DataManager.FindTrackedObjectByName(searchName);
+
             if (trackedObject == null)
             {
                 trackedObject = new TrackedObject(searchName);
                 var success = await sceneController.DataManager.UploadOrUpdate(trackedObject);
+
                 if (!success)
-                {
                     return null;
-                }
                 
-                await sceneController.DataManager.UploadOrUpdate(trackedObject);
+                //await sceneController.DataManager.UploadOrUpdate(trackedObject);
             }
 
             hintLabel.gameObject.SetActive(false);
@@ -134,9 +144,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         private void SetButtonsInteractiveState(bool state)
         {
             foreach (var interactable in buttons)
-            {
                 interactable.enabled = state;
-            }
         }
     }
 }

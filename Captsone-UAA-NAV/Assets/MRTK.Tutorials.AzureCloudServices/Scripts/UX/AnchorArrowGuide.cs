@@ -11,8 +11,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
     /// </summary>
     public class AnchorArrowGuide : MonoBehaviour
     {
-        [SerializeField]
-        private DirectionalIndicator directionalIndicator = default;
+        [SerializeField] private DirectionalIndicator directionalIndicator = default;
         
         private void OnBecameInvisible()
         {
@@ -41,6 +40,5 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
             directionalIndicator.DirectionalTarget = targetObject;
             gameObject.SetActive(true);
         }
-        
     }
 }
