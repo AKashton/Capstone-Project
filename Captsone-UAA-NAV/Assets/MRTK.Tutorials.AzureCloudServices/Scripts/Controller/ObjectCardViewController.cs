@@ -26,8 +26,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         [SerializeField] private StatefulInteractable[] buttons = default;
         
         private TrackedObject trackedObject;
-        private bool isSearchingWithComputerVision;
-        private bool objectDetectedWithComputerVision;
         
         private void Awake()
         {
@@ -46,35 +44,13 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 sceneController = FindObjectOfType<SceneController>();
             
             trackedObject = source;
-            objectNameLabel.SetText(this.trackedObject.Name);
-            descriptionLabel.text = this.trackedObject.Description;
-            isSearchingWithComputerVision = false;
-            objectDetectedWithComputerVision = false;
+            objectNameLabel.SetText(trackedObject.Name);
+            descriptionLabel.text = trackedObject.Description;
             
-            if (!string.IsNullOrEmpty(this.trackedObject.ThumbnailBlobName))
+            if (!string.IsNullOrEmpty(trackedObject.ThumbnailBlobName))
                 thumbnailImage.sprite = await LoadThumbnailImage();
             else
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
-        }
-
-        public async void StartComputerVisionDetection()
-        {
-            sceneController.StartCamera();
-
-            if (string.IsNullOrEmpty(trackedObject.CustomVisionTagId) || string.IsNullOrEmpty(sceneController.CurrentProject.CustomVisionIterationId))
-            {
-                messageLabel.text = "There is no model trained set for this object.";
-                return;
-            }
-
-            if (isSearchingWithComputerVision || objectDetectedWithComputerVision)
-                return;
-            
-            SetButtonsInteractiveState(false);
-            isSearchingWithComputerVision = true;
-            messageLabel.text = "Look around for object...";
-            await SearchWithComputerVision();
-            sceneController.StopCamera();
         }
 
         public void StartFindLocation()
@@ -120,43 +96,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
         public void CloseCard()
         {
-            isSearchingWithComputerVision = false;
             messageLabel.text = string.Empty;
             sceneController.OpenMainMenu();
             Destroy(gameObject);
-        }
-
-        private async Task SearchWithComputerVision()
-        {
-            while (isSearchingWithComputerVision)
-            {
-                await Task.Delay(1000);
-                var image = await sceneController.TakePhoto();
-
-                try
-                {
-                    var response = await sceneController.ObjectDetectionManager.DetectImage(image, sceneController.CurrentProject.CustomVisionPublishedModelName);
-                    var prediction = response.Predictions.SingleOrDefault(p => p.TagId == trackedObject.CustomVisionTagId);
-
-                    if(prediction != null && prediction.Probability > 0.75d)
-                    {
-                        objectDetectedWithComputerVision = true;
-                        isSearchingWithComputerVision = false;
-                        messageLabel.text = "Object found!";
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.Log(e.Message);
-                    isSearchingWithComputerVision = false;
-                    objectDetectedWithComputerVision = false;
-                    messageLabel.text = "Server error, try later again.";
-                    
-                    SetButtonsInteractiveState(true);
-                }
-            }
-            
-            SetButtonsInteractiveState(true);
         }
 
         private async Task<Sprite> LoadThumbnailImage()

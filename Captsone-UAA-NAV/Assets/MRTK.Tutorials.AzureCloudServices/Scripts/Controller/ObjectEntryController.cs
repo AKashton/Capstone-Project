@@ -94,7 +94,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
             if (project != null)
             {
-                //searchObjectPanel.SetActive(false);
                 var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
                 objectCard.Init(project);
 
@@ -133,8 +132,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
                 if (!success)
                     return null;
-                
-                //await sceneController.DataManager.UploadOrUpdate(trackedObject);
             }
 
             hintLabel.gameObject.SetActive(false);
