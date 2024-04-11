@@ -48,31 +48,31 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         {
             SetButtonsInteractiveState(false);
 
-            var project = await FindObject("1");
+            var project0 = await FindObject("0");
 
-            if (project != null)
+            if (project0 != null)
             {
                 searchObjectPanel.SetActive(false);
                 var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
-                objectCard.InitAndFind(project);
+                objectCard.InitAndFind(project0);
             }
 
-            project = await FindObject("2");
+            var project1 = await FindObject("1");
 
-            if (project != null)
+            if (project1 != null)
             {
                 searchObjectPanel.SetActive(false);
                 var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
-                objectCard.InitAndFind(project);
+                objectCard.InitAndFind(project1);
             }
 
-            project = await FindObject("3");
+            var project2 = await FindObject("2");
 
-            if (project != null)
+            if (project2 != null)
             {
                 searchObjectPanel.SetActive(false);
                 var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
-                objectCard.InitAndFind(project);
+                objectCard.InitAndFind(project2);
             }
 
             SetButtonsInteractiveState(true);
