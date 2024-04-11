@@ -44,6 +44,40 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             submitButtonLabel.SetText(isInSearchMode ? "Search Object" : "Set Object");
         }
 
+        public async void FindAllAnchors()
+        {
+            SetButtonsInteractiveState(false);
+
+            var project = await FindObject("1");
+
+            if (project != null)
+            {
+                searchObjectPanel.SetActive(false);
+                var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
+                objectCard.InitAndFind(project);
+            }
+
+            project = await FindObject("2");
+
+            if (project != null)
+            {
+                searchObjectPanel.SetActive(false);
+                var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
+                objectCard.InitAndFind(project);
+            }
+
+            project = await FindObject("3");
+
+            if (project != null)
+            {
+                searchObjectPanel.SetActive(false);
+                var objectCard = Instantiate(objectCardPrefab, transform.position, transform.rotation);
+                objectCard.InitAndFind(project);
+            }
+
+            SetButtonsInteractiveState(true);
+        }
+
         public async void SubmitQuery()
         {
             if (string.IsNullOrWhiteSpace(inputField.text))

@@ -18,7 +18,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         public TrackedObject TrackedObject => trackedObject;
 
         [SerializeField] private ObjectCardViewController objectCard = default;
-        [SerializeField] private TextMeshPro labelText = default;
         [SerializeField] SpriteRenderer spriteRenderer;
 
         private TrackedObject trackedObject;

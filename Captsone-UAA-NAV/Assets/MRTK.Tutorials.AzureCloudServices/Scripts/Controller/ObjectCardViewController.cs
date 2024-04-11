@@ -38,6 +38,21 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             sceneController.OpenMainMenu();
         }
 
+        public void InitAndFind(TrackedObject source)
+        {
+            if (sceneController == null)
+                sceneController = FindObjectOfType<SceneController>();
+
+            trackedObject = source;
+            objectNameLabel.SetText(trackedObject.Name);
+            descriptionLabel.text = trackedObject.Description;
+
+            sceneController.StopCamera();
+            sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
+            sceneController.AnchorManager.FindAnchor(trackedObject);
+
+        }
+
         public async void Init(TrackedObject source)
         {
             if (sceneController == null)
