@@ -91,7 +91,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
         /// Should be called from the previous menu.
         /// </summary>
         /// <param name="source">TrackedObject source</param>
-        public async void Init(TrackedObject source)
+        public void Init(TrackedObject source)
         {
             trackedObject = source;
             objectNameLabel.SetText(trackedObject.Name);
@@ -99,10 +99,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
             SetButtonsInteractiveState(true);
 
+            /*
             if (!string.IsNullOrEmpty(trackedObject.ThumbnailBlobName))
                 thumbnailImage.sprite = await LoadThumbnailImage();
             else
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
+            */
             
             sceneController.StartCamera();
         }
@@ -239,8 +241,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
         private void SetButtonsInteractiveState(bool state)
         {
-            foreach (var interactable in buttons)
-                interactable.enabled = state;
+            return;
+            //foreach (var interactable in buttons)
+            //    interactable.enabled = state;
         }
     }
 }
