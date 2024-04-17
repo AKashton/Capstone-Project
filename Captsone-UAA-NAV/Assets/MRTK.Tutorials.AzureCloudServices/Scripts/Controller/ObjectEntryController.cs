@@ -98,7 +98,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
             if (isInSearchMode)
             {
-                var project = await FindObject(inputField.text);
+                var project = await FindObject(PageManager.MapLocation + inputField.text);
 
                 if (project != null)
                 {
@@ -109,7 +109,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             }
             else
             {
-                var project = await CreateObject(inputField.text);
+                var project = await CreateObject(PageManager.MapLocation + inputField.text);
 
                 if (project != null)
                 {
@@ -140,7 +140,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             hintLabel.SetText(loadingText);
             hintLabel.gameObject.SetActive(true);
 
-            var projectFromDb = await sceneController.DataManager.FindTrackedObjectByName(searchName);
+            var projectFromDb = await sceneController.DataManager.FindTrackedObjectByName(PageManager.MapLocation + searchName);
 
             if (projectFromDb == null)
             {
@@ -157,11 +157,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             hintLabel.SetText(loadingText);
             hintLabel.gameObject.SetActive(true);
 
-            var trackedObject = await sceneController.DataManager.FindTrackedObjectByName(searchName);
+            var trackedObject = await sceneController.DataManager.FindTrackedObjectByName(PageManager.MapLocation + searchName);
 
             if (trackedObject == null)
             {
-                trackedObject = new TrackedObject(searchName);
+                trackedObject = new TrackedObject(PageManager.MapLocation + searchName);
                 var success = await sceneController.DataManager.UploadOrUpdate(trackedObject);
 
                 if (!success)

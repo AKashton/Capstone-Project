@@ -42,11 +42,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
             if (trackedObject != null)
             {
-                if (int.Parse(trackedObject.Name) == 0)
+                if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
                     spriteRenderer.sprite = pageManager.GetWolfPage(0);
-                else if (int.Parse(trackedObject.Name) == 1)
+                else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
                     spriteRenderer.sprite = pageManager.GetWolfCircle();
-                else if (int.Parse(trackedObject.Name) == 2)
+                else if (trackedObject.Name[trackedObject.Name.Length - 1] == '2')
                     spriteRenderer.sprite = pageManager.GetPosterPage(0);
 
                 objectCard.Init(trackedObject);
@@ -55,12 +55,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public void EngagePosition()
         {
-            if (int.Parse(trackedObject.Name) == 0)
+            if (trackedObject.Name[trackedObject.Name.Length - 1] == '0') // was int.Parse(trackedObject.Name)
             {
                 pictureIndex = (pictureIndex + 1) % pageManager.GetNumberWolfPages();
                 spriteRenderer.sprite = pageManager.GetWolfPage(pictureIndex);
             }
-            else if (int.Parse(trackedObject.Name) == 1)
+            else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
                 pageManager.EnableGazeGame();
             else
             {
@@ -73,9 +73,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         {
             TrackedObject nextObject;
 
-            if (int.Parse(trackedObject.Name) == 0)
+            if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
                 nextObject = pageManager.GetTrackedObject(1);
-            else if (int.Parse(trackedObject.Name) == 1)
+            else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
                 nextObject = pageManager.GetTrackedObject(2);
             else
                 nextObject = pageManager.GetTrackedObject(0);
@@ -93,7 +93,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public TrackedObject CheckAnchorIntName(int input)
         {
-            if (int.Parse(trackedObject.Name) == input)
+            if (trackedObject.Name == PageManager.MapLocation + (char)input)
                 return trackedObject;
             else
                 return null;

@@ -2,13 +2,19 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.UX;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using TMPro.EditorUtilities;
 
 public class PageManager : MonoBehaviour
 {
+    public static string MapLocation = "ADSAIL1";
+
     [SerializeField] List<Sprite> wolfPages, wolfCircle, posterPages;
     [SerializeField] GameObject objectController;
     [SerializeField] GameObject wolfGazeGame;
     [SerializeField] GameObject rootMenu;
+    [SerializeField] TMP_Dropdown locationDropdown;
     //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
 
     public int GetNumberWolfPages()
@@ -61,5 +67,11 @@ public class PageManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void UpdateLocation()
+    {
+        MapLocation = locationDropdown.options[locationDropdown.value].text;
+        Debug.Log(MapLocation);
     }
 }
