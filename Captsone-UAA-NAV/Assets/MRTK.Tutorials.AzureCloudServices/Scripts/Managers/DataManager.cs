@@ -47,6 +47,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             cloudTableClient = storageAccount.CreateCloudTableClient();
             projectsTable = cloudTableClient.GetTableReference(projectsTableName);
             trackedObjectsTable = cloudTableClient.GetTableReference(trackedObjectsTableName);
+
             if (tryCreateTableOnStart)
             {
                 try
@@ -67,6 +68,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
             blobClient = storageAccount.CreateCloudBlobClient();
             blobContainer = blobClient.GetContainerReference(blockBlobContainerName);
+
             if (tryCreateBlobContainerOnStart)
             {
                 try

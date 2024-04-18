@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
-        rootMenu.SetActive(true);
+        //rootMenu.SetActive(true);
         seaWolfGameObject.SetActive(false);
         /*
 #if UNITY_EDITOR

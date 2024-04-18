@@ -8,15 +8,37 @@ using TMPro.EditorUtilities;
 
 public class PageManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class PointOfInterest
+    {
+        public enum nodeTypes { IMAGE, TEXT, GAME1, GAME2, GAME3, CONNECTING }
+        public nodeTypes nodeType;
+        public List<Sprite> nodeSprites;
+    }
+
+    [System.Serializable]
+    public class Location
+    {
+        public string mapLocation;
+        public List<PointOfInterest> pointsOfInterest = new List<PointOfInterest>();
+    }
+
     public static string MapLocation = "ADSAIL1";
 
+    [SerializeField] List<Location> locations = new List<Location>();
     [SerializeField] List<Sprite> wolfPages, wolfCircle, posterPages;
     [SerializeField] GameObject objectController;
     [SerializeField] GameObject wolfGazeGame;
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
     //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
-
+    string s1 = "hellothere", s2 = "hello";
+    private void Awake()
+    {
+        int stringIndex = s1.IndexOf(s2);
+        s1 = s1.Remove(stringIndex, s2.Length);
+        Debug.Log(s1);
+    }
     public int GetNumberWolfPages()
     {
         return wolfPages.Count;
@@ -73,5 +95,16 @@ public class PageManager : MonoBehaviour
     {
         MapLocation = locationDropdown.options[locationDropdown.value].text;
         Debug.Log(MapLocation);
+    }
+
+    public Location GetLocation()
+    {
+        for (int i = 0; i < locations.Count; i++)
+        {
+            if (locations[i].mapLocation == MapLocation)
+                return locations[i];
+        }
+
+        return null;
     }
 }

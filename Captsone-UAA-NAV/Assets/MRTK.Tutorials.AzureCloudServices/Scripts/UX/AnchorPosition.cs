@@ -17,12 +17,13 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
     {
         public TrackedObject TrackedObject => trackedObject;
 
-        [SerializeField] private ObjectCardViewController objectCard = default;
+        [SerializeField] ObjectCardViewController objectCard = default;
         [SerializeField] SpriteRenderer spriteRenderer;
 
-        private TrackedObject trackedObject;
+        TrackedObject trackedObject;
         PageManager pageManager;
         int pictureIndex = 0;
+        string objectLocation;
 
         void Awake()
         {
@@ -42,12 +43,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
             if (trackedObject != null)
             {
+                PageManager.PointOfInterest pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
+
+                /*
                 if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
                     spriteRenderer.sprite = pageManager.GetWolfPage(0);
                 else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
                     spriteRenderer.sprite = pageManager.GetWolfCircle();
                 else if (trackedObject.Name[trackedObject.Name.Length - 1] == '2')
                     spriteRenderer.sprite = pageManager.GetPosterPage(0);
+                */
 
                 objectCard.Init(trackedObject);
             }
