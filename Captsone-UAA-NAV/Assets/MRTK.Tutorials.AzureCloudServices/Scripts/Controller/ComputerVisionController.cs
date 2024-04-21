@@ -128,7 +128,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             }
 
             SetButtonsInteractiveState(true);
-            sceneController.StartCamera();
+            //sceneController.StartCamera();
         }
 
         public void StartPhotoCapture()

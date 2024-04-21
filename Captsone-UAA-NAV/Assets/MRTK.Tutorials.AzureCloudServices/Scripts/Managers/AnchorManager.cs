@@ -101,10 +101,13 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             Debug.Log("Anchor position has been set, saving location process started.");
 
+            /*
             if (Application.isEditor)
                 CreateAsaAnchorEditor(indicatorTransform);
             else
-                CreateAsaAnchor(indicatorTransform);
+            */
+
+            CreateAsaAnchor(indicatorTransform);
         }
 
         /// <summary>
@@ -116,12 +119,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             currentTrackedObject = trackedObject;
 
+            /*
             if (Application.isEditor)
                 FindAsaAnchorEditor();
             else
-                FindAsaAnchor();
+            */
+            
+            FindAsaAnchor();
         }
 
+        /*
         private async void CreateAsaAnchorEditor(Transform indicatorTransform)
         {
             var indicator = Instantiate(anchorPositionPrefab, indicatorTransform.position, indicatorTransform.rotation);
@@ -138,8 +145,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 currentTrackedObject = null;
             });
         }
+        */
 
-        private async void CreateAsaAnchor(Transform indicatorTransform)
+        async void CreateAsaAnchor(Transform indicatorTransform)
         {
             Debug.Log("\nAnchorManager.CreateAsaAnchor()");
             anchorCreationController.StartProgressIndicatorSession();
@@ -244,15 +252,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             StopAzureSession();
         }
 
-        private async void FindAsaAnchor()
+        async void FindAsaAnchor()
         {
             anchorCreationController.StartProgressIndicatorSession();
 
-            if (cloudManager.Session == null)
-            {
-                // Creates a new session if one does not exist
+            if (cloudManager.Session == null) // Creates a new session if one does not exist
                 await cloudManager.CreateSessionAsync();
-            }
 
             // Starts the session if not already started
             await cloudManager.StartSessionAsync();
@@ -271,6 +276,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             }
         }
 
+        /*
         private async void FindAsaAnchorEditor()
         {
             anchorCreationController.StartProgressIndicatorSession();
@@ -288,8 +294,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             AppDispatcher.Instance().Enqueue(() => OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty));
             currentTrackedObject = null;
         }
+        */
 
-        private async void StopAzureSession()
+        async void StopAzureSession()
         {
             // Reset the current session if there is one, and wait for any active queries to be stopped
             await cloudManager.ResetSessionAsync();
@@ -299,7 +306,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         }
 
         #region EVENT HANDLERS
-        private void HandleAnchorLocated(object sender, AnchorLocatedEventArgs args)
+        void HandleAnchorLocated(object sender, AnchorLocatedEventArgs args)
         {
             Debug.Log($"Anchor recognized as a possible Azure anchor");
             
@@ -360,13 +367,13 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             StopAzureSession();
         }
         
-        private void HandleOnAnchorPlaced(object sender, Transform indicatorTransform)
+        void HandleOnAnchorPlaced(object sender, Transform indicatorTransform)
         {
             anchorPlacementController.gameObject.SetActive(false);
             CreateAnchor(indicatorTransform);
         }
 
-        private void HandleOnAnchorPlacementCanceled(object sender, EventArgs e)
+        void HandleOnAnchorPlacementCanceled(object sender, EventArgs e)
         {
             OnPlaceAnchorCanceled?.Invoke(this, EventArgs.Empty);
             anchorPlacementController.gameObject.SetActive(false);

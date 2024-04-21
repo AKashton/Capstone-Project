@@ -22,6 +22,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         TrackedObject trackedObject;
         PageManager pageManager;
+        PageManager.PointOfInterest pointOfInterest;
         int pictureIndex = 0;
         string objectLocation;
 
@@ -43,7 +44,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
             if (trackedObject != null)
             {
-                PageManager.PointOfInterest pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
+                pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
+
+                if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
+                {
+                    spriteRenderer.enabled = false;
+                    // Enable text panel object
+                    // Set default text
+                }
+                else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.CONNECTING)
+                    spriteRenderer.enabled = false;
+                else
+                    spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
 
                 /*
                 if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
@@ -60,6 +72,15 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public void EngagePosition()
         {
+            if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.IMAGE)
+            {
+                pictureIndex = (pictureIndex + 1) % pointOfInterest.nodeSprites.Count;
+                spriteRenderer.sprite = pointOfInterest.nodeSprites[pictureIndex];
+            }
+            else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
+                pageManager.EnableGazeGame();
+
+            /*
             if (trackedObject.Name[trackedObject.Name.Length - 1] == '0') // was int.Parse(trackedObject.Name)
             {
                 pictureIndex = (pictureIndex + 1) % pageManager.GetNumberWolfPages();
@@ -72,6 +93,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 pictureIndex = (pictureIndex + 1) % pageManager.GetNumberPosterPages();
                 spriteRenderer.sprite = pageManager.GetPosterPage(pictureIndex);
             }
+            */
         }
 
         public void FindNextPosition()

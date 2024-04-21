@@ -19,30 +19,30 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
     public class ObjectEditController : MonoBehaviour
     {
         [Header("Managers")]
-        [SerializeField] private SceneController sceneController;
+        [SerializeField] SceneController sceneController;
         [Header("UI Elements")]
-        [SerializeField] private ComputerVisionController computerVisionController = default;
-        [SerializeField] private GameObject hintTextPrefab = default;
-        [SerializeField] private TMP_Text objectNameLabel = default;
-        [SerializeField] private TMP_Text messageLabel = default;
-        [SerializeField] private Text descriptionInputField = default;
-        [SerializeField] private Image thumbnailImage = default;
-        [SerializeField] private Sprite thumbnailPlaceHolderImage = default;
-        [SerializeField] private StatefulInteractable[] buttons = default;
-        [SerializeField] private InputActionReference leftHandTapActionReference = null;
-        [SerializeField] private InputActionReference rightHandTapActionReference = null;
+        [SerializeField] ComputerVisionController computerVisionController = default;
+        [SerializeField] GameObject hintTextPrefab = default;
+        [SerializeField] TMP_Text objectNameLabel = default;
+        [SerializeField] TMP_Text messageLabel = default;
+        [SerializeField] Text descriptionInputField = default;
+        [SerializeField] Image thumbnailImage = default;
+        [SerializeField] Sprite thumbnailPlaceHolderImage = default;
+        [SerializeField] StatefulInteractable[] buttons = default;
+        [SerializeField] InputActionReference leftHandTapActionReference = null;
+        [SerializeField] InputActionReference rightHandTapActionReference = null;
 
-        private TrackedObject trackedObject;
-        private GameObject hintTextInstance;
-        private bool isWaitingForAirtap = false;
+        TrackedObject trackedObject;
+        GameObject hintTextInstance;
+        bool isWaitingForAirtap = false;
 
-        private void Awake()
+        void Awake()
         {
             if (sceneController == null)
                 sceneController = FindObjectOfType<SceneController>();
         }
 
-        private void Start()
+        void Start()
         {
             if (hintTextInstance == null)
             {
@@ -65,7 +65,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 placementActionLH.performed += StartTap;
         }
 
-        private void StartTap(InputAction.CallbackContext obj)
+        void StartTap(InputAction.CallbackContext obj)
         {
             if (isWaitingForAirtap)
                 CapturePhoto();
@@ -106,7 +106,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
             */
             
-            sceneController.StartCamera();
+            //sceneController.StartCamera();
         }
 
         /// <summary>
@@ -124,7 +124,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             hintTextInstance.SetActive(true);
             isWaitingForAirtap = true;
             messageLabel.text = "Look at object and do Airtap to take photo.";
-
         }
 
         /// <summary>
@@ -191,7 +190,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 return;
             }
 
-            sceneController.StopCamera();
+            //sceneController.StopCamera();
             SetButtonsInteractiveState(false);
             messageLabel.text = "Move pointer and AirTap on the desired place to save the location.";
             sceneController.AnchorManager.StartPlacingAnchor(trackedObject);
@@ -204,7 +203,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 CapturePhoto();
         }
         
-        private async void CapturePhoto()
+        async void CapturePhoto()
         {
             isWaitingForAirtap = false;
             hintTextInstance.SetActive(false);
@@ -220,17 +219,17 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             SetButtonsInteractiveState(true);
         }
 
-        private async void HandleOnCreateAnchorSucceeded(object sender, string id)
+        async void HandleOnCreateAnchorSucceeded(object sender, string id)
         {
             sceneController.AnchorManager.OnCreateAnchorSucceeded -= HandleOnCreateAnchorSucceeded;
-            sceneController.StartCamera();
+            //sceneController.StartCamera();
             trackedObject.SpatialAnchorId = id;
             await sceneController.DataManager.UploadOrUpdate(trackedObject);
             sceneController.OpenMainMenu();
             gameObject.SetActive(false);
         }
         
-        private async Task<Sprite> LoadThumbnailImage()
+        async Task<Sprite> LoadThumbnailImage()
         {
             var imageData = await sceneController.DataManager.DownloadBlob(trackedObject.ThumbnailBlobName);
             var texture = new Texture2D(2, 2);
@@ -239,11 +238,10 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             return texture.CreateSprite();
         }
 
-        private void SetButtonsInteractiveState(bool state)
+        void SetButtonsInteractiveState(bool state)
         {
-            return;
-            //foreach (var interactable in buttons)
-            //    interactable.enabled = state;
+            foreach (var interactable in buttons)
+                interactable.enabled = state;
         }
     }
 }

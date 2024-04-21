@@ -16,24 +16,24 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
     public class ObjectCardViewController : MonoBehaviour
     {
         [Header("Managers")]
-        [SerializeField] private SceneController sceneController;
+        [SerializeField] SceneController sceneController;
         [Header("UI")]
-        [SerializeField] private TMP_Text objectNameLabel = default;
-        [SerializeField] private TMP_Text descriptionLabel = default;
-        [SerializeField] private TMP_Text messageLabel = default;
-        [SerializeField] private Image thumbnailImage = default;
-        [SerializeField] private Sprite thumbnailPlaceHolderImage = default;
-        [SerializeField] private StatefulInteractable[] buttons = default;
+        [SerializeField] TMP_Text objectNameLabel = default;
+        [SerializeField] TMP_Text descriptionLabel = default;
+        [SerializeField] TMP_Text messageLabel = default;
+        [SerializeField] Image thumbnailImage = default;
+        [SerializeField] Sprite thumbnailPlaceHolderImage = default;
+        [SerializeField] StatefulInteractable[] buttons = default;
         
-        private TrackedObject trackedObject;
+        TrackedObject trackedObject;
         
-        private void Awake()
+        void Awake()
         {
             if (sceneController == null)
                 sceneController = FindObjectOfType<SceneController>();
         }
         
-        private void OnDisable()
+        void OnDisable()
         {
             sceneController.OpenMainMenu();
         }
@@ -47,10 +47,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             objectNameLabel.SetText(trackedObject.Name);
             descriptionLabel.text = trackedObject.Description;
 
-            sceneController.StopCamera();
+            //sceneController.StopCamera();
             sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
             sceneController.AnchorManager.FindAnchor(trackedObject);
-
         }
 
         public async void Init(TrackedObject source)
@@ -83,10 +82,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
                 return;
             }
             
-            sceneController.StopCamera();
+            //sceneController.StopCamera();
             sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
             sceneController.AnchorManager.FindAnchor(trackedObject);
         }
+
         /*
         public void StartFindLocation(int pageID)
         {
@@ -102,7 +102,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             sceneController.AnchorManager.FindAnchor(trackedObject);
         }
         */
-        private void HandleOnAnchorFound(object sender, EventArgs e)
+
+        void HandleOnAnchorFound(object sender, EventArgs e)
         {
             Debug.Log("ObjectCardViewController.HandleOnAnchorFound");
             sceneController.AnchorManager.OnFindAnchorSucceeded -= HandleOnAnchorFound;
@@ -116,7 +117,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             Destroy(gameObject);
         }
 
-        private async Task<Sprite> LoadThumbnailImage()
+        async Task<Sprite> LoadThumbnailImage()
         {
             var imageData = await sceneController.DataManager.DownloadBlob(trackedObject.ThumbnailBlobName);
             var texture = new Texture2D(2, 2);
@@ -124,7 +125,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         }
 
-        private void SetButtonsInteractiveState(bool state)
+        void SetButtonsInteractiveState(bool state)
         {
             foreach (var interactable in buttons)
                 interactable.enabled = state;

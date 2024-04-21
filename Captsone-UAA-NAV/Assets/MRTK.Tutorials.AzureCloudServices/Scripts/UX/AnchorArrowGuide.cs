@@ -11,9 +11,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
     /// </summary>
     public class AnchorArrowGuide : MonoBehaviour
     {
-        [SerializeField] private DirectionalIndicator directionalIndicator = default;
+        [SerializeField] DirectionalIndicator directionalIndicator = default;
         
-        private void OnBecameInvisible()
+        void OnBecameInvisible()
         {
             // Triggered when 'DirectionalIndicator' component disables the Mesh Renderer
             SetTargetObject(null);
