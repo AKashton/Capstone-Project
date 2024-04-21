@@ -180,7 +180,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             CloudSpatialAnchor localCloudAnchor = cna.CloudAnchor;
 
             // Set expiration (when anchor will be deleted from Azure)
-            localCloudAnchor.Expiration = DateTimeOffset.Now.AddDays(7);
+            //localCloudAnchor.Expiration = DateTimeOffset.Now.AddDays(7);
 
             // Check to see if we got the local XR anchor pointer
             if (localCloudAnchor.LocalAnchor == IntPtr.Zero)

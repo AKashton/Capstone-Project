@@ -45,14 +45,14 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
 
             trackedObject = source;
             objectNameLabel.SetText(trackedObject.Name);
-            descriptionLabel.text = trackedObject.Description;
+            //descriptionLabel.text = trackedObject.Description;
 
             //sceneController.StopCamera();
             sceneController.AnchorManager.OnFindAnchorSucceeded += HandleOnAnchorFound;
             sceneController.AnchorManager.FindAnchor(trackedObject);
         }
 
-        public async void Init(TrackedObject source)
+        public void Init(TrackedObject source) // Removed async
         {
             if (sceneController == null)
                 sceneController = FindObjectOfType<SceneController>();
@@ -61,10 +61,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Controller
             objectNameLabel.SetText(trackedObject.Name);
             descriptionLabel.text = trackedObject.Description;
             
+            /*
             if (!string.IsNullOrEmpty(trackedObject.ThumbnailBlobName))
                 thumbnailImage.sprite = await LoadThumbnailImage();
             else
                 thumbnailImage.sprite = thumbnailPlaceHolderImage;
+            */
         }
 
         public void StartFindLocation()
