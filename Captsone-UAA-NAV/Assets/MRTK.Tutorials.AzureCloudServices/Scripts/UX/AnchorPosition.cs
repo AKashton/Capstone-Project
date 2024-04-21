@@ -44,7 +44,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
             if (trackedObject != null)
             {
-                pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
+                string s1 = trackedObject.Name, s2 = PageManager.MapLocation;
+                int stringIndex = s1.IndexOf(s2);
+                s1 = s1.Remove(stringIndex, s2.Length);
+
+                //pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
+                pointOfInterest = pageManager.GetLocation().pointsOfInterest[int.Parse(s1)];
 
                 if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
                 {
@@ -100,12 +105,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         {
             TrackedObject nextObject;
 
+            /*
             if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
                 nextObject = pageManager.GetTrackedObject(1);
             else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
                 nextObject = pageManager.GetTrackedObject(2);
             else
                 nextObject = pageManager.GetTrackedObject(0);
+            */
+
+            nextObject = pageManager.GetTrackedObject(int.Parse(pointOfInterest.nextpointNumber));
 
             if (nextObject == null)
                 return;

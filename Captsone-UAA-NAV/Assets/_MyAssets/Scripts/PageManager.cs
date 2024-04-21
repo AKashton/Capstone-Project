@@ -13,6 +13,7 @@ public class PageManager : MonoBehaviour
         public enum nodeTypes { IMAGE, TEXT, GAME1, GAME2, GAME3, CONNECTING }
         public nodeTypes nodeType;
         public List<Sprite> nodeSprites;
+        public string nextpointNumber;
     }
 
     [System.Serializable]
@@ -31,13 +32,16 @@ public class PageManager : MonoBehaviour
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
     //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
-    string s1 = "hellothere", s2 = "hello";
+
+    /*string s1 = "hellothere", s2 = "hello";
     private void Awake()
     {
         int stringIndex = s1.IndexOf(s2);
         s1 = s1.Remove(stringIndex, s2.Length);
         Debug.Log(s1);
-    }
+    }*/
+
+    /*
     public int GetNumberWolfPages()
     {
         return wolfPages.Count;
@@ -62,6 +66,7 @@ public class PageManager : MonoBehaviour
     {
         return posterPages[index];
     }
+    */
 
     public void ActivateController(bool input)
     {
