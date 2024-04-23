@@ -84,6 +84,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
             }
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
                 pageManager.EnableGazeGame();
+            else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
+                pageManager.EnablePuzzleGame();
 
             /*
             if (trackedObject.Name[trackedObject.Name.Length - 1] == '0') // was int.Parse(trackedObject.Name)

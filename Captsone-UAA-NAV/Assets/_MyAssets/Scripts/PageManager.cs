@@ -28,7 +28,7 @@ public class PageManager : MonoBehaviour
     [SerializeField] List<Location> locations = new List<Location>();
     [SerializeField] List<Sprite> wolfPages, wolfCircle, posterPages;
     [SerializeField] GameObject objectController;
-    [SerializeField] GameObject wolfGazeGame;
+    [SerializeField] GameObject wolfGazeGame, puzzleGame;
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
     //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
@@ -77,6 +77,12 @@ public class PageManager : MonoBehaviour
     {
         rootMenu.SetActive(false);
         wolfGazeGame.SetActive(true);
+    }
+
+    public void EnablePuzzleGame()
+    {
+        rootMenu.SetActive(false);
+        puzzleGame.SetActive(true);
     }
 
     public MRTK.Tutorials.AzureCloudServices.Scripts.Domain.TrackedObject GetTrackedObject(int index)
