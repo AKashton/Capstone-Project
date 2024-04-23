@@ -192,4 +192,10 @@ public class TileManager : MonoBehaviour
         replaySlate.SetActive(true);
         gameObject.SetActive(false);
     }
+
+    public void EarlyQuit()
+    {
+        Destroy(holder);
+        gameObject.SetActive(false);
+    }
 }
