@@ -15,51 +15,14 @@ public class Tile : MonoBehaviour
         tileManager = GameObject.FindWithTag("TileManager").GetComponent<TileManager>();
     }
 
-    /*
-    void OnMouseDown()
-    {
-        if (!tileManager.CheckPuzzleCompletion())
-            AttemptMove(true);
-    }
-    */
-
     public void ClickTile()
     {
         tileManager.CallTileSwap(gameObject);
-
-        /*
-        Collider[] possibleTiles = Physics.OverlapSphere(transform.position, 1);
-        List<GameObject> closeTiles = new List<GameObject>();
-
-        for (int i = 0; i < possibleTiles.Length; i++)
-        {
-            if (Vector3.Distance(possibleTiles[i].gameObject.transform.position, transform.position) <= 1)
-                closeTiles.Add(possibleTiles[i].gameObject);
-        }
-
-        Debug.Log(possibleTiles.Length);
-        Debug.Log(closeTiles.Count);
-        */
     }
 
     public void AssignStartLocation()
     {
         startLocation = transform.localPosition;
-    }
-
-    public void AttemptMove(bool puzzleStarted = false)
-    {
-        if (Vector3.Distance(transform.position, tileManager.GetEmptyLocation()) > 1)
-            Debug.Log("Too far");
-        else
-        {
-            Vector3 tempVector = transform.position;
-            transform.position = tileManager.GetEmptyLocation();
-            tileManager.SetEmptyLocation(tempVector);
-
-            if (puzzleStarted)
-                tileManager.CheckFinished();
-        }
     }
 
     public float GetDistanceFromStart()

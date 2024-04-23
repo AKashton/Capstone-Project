@@ -10,21 +10,20 @@ public class TileManager : MonoBehaviour
     [SerializeField] List<Sprite> tileSprites;
     [SerializeField] SpriteRenderer finishedImage;
     [SerializeField] Transform emptyTransform, startTransform;
-    [SerializeField] float castDistance;
 
     List<GameObject> tiles = new List<GameObject>();
     List<int> possibleMoveIndex = new List<int>();
+    GameObject holder;
+    SpriteRenderer lastTileSprite;
     Vector3 emptyLocation;
-    bool puzzleComplete = false;
     int emptyIndex = 15;
     int counter = 0;
     float minDisplacement = 6f;
     bool gameStarted = false;
-    GameObject holder;
-    SpriteRenderer lastTileSprite;
 
     void OnEnable()
     {
+        tiles.Clear();
         emptyIndex = dimension * dimension - 1;
         holder = Instantiate(tileHolder, gameObject.transform.position, Quaternion.identity, transform);
 
@@ -49,7 +48,6 @@ public class TileManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log(CountTotalDisplacement());
         gameStarted = true;
     }
 
@@ -109,57 +107,6 @@ public class TileManager : MonoBehaviour
         return true;
     }
 
-    void ScrambleTiles(float minDisplacement = 10)
-    {
-        ScrambleTiles(0, minDisplacement, 0);
-    }
-
-    void ScrambleTiles(float displacement, float minDisplacement, int counter)
-    {
-        if (displacement > minDisplacement)
-        {
-            Debug.Log(displacement);
-            return;
-        }
-
-        if (counter > 100)
-        {
-            if (displacement > 0.9f * minDisplacement)
-            {
-                Debug.Log(displacement + " Early escape");
-                return;
-            }    
-        }
-        else if (counter > 200)
-        {
-            Debug.Log(displacement + " Escaped");
-            return;
-        }
-
-        possibleMoveIndex.Clear();
-
-        if (emptyIndex >= dimension) // Empty tile is below top row
-            possibleMoveIndex.Add(emptyIndex - 4);
-
-        if (emptyIndex < (dimension - 1) * dimension) // Empty tile is above bottom row
-            possibleMoveIndex.Add(emptyIndex + 4);
-
-        if (emptyIndex % dimension > 0) // Empty tile is to right of leftmost column
-            possibleMoveIndex.Add(emptyIndex - 1);
-
-        if (emptyIndex % dimension < dimension - 1) // Empty tile is to left of rightmost column
-            possibleMoveIndex.Add(emptyIndex + 1);
-
-        int randomNeighborIndex = Random.Range(0, possibleMoveIndex.Count);
-
-        SwapTiles(possibleMoveIndex[randomNeighborIndex], emptyIndex);
-        //Debug.Log(tiles[emptyIndex].GetComponent<Tile>().GetDistanceFromStart());
-
-        counter++;
-
-        ScrambleTiles(CountTotalDisplacement(), minDisplacement, counter);
-    }
-
     public float CountTotalDisplacement()
     {
         float totalDisplacement = 0;
@@ -175,11 +122,6 @@ public class TileManager : MonoBehaviour
         if (CountTotalDisplacement() < 0.001f)
         {
             gameStarted = false;
-            //puzzleComplete = true;
-            //lastTileSprite.color = Color.white;
-            //Debug.Log("You finished the puzzle!");
-            //StartCoroutine("DisplayFinishedImage", 0);
-
             lastTileSprite.gameObject.GetComponent<Tile>().FadeWhite();
 
             for (int i = 0; i < tiles.Count; i++)
@@ -187,32 +129,6 @@ public class TileManager : MonoBehaviour
 
             Invoke("OpenReplayScreen", 4);
         }
-        else
-            Debug.Log(CountTotalDisplacement());
-    }
-
-    public bool CheckPuzzleCompletion()
-    {
-        return puzzleComplete;
-    }
-
-    IEnumerator DisplayFinishedImage(int imageAlpha)
-    {
-        imageAlpha += 11;
-
-        Color tempColor = finishedImage.color;
-        tempColor.a = (float)imageAlpha / 255;
-        finishedImage.color = tempColor;
-
-        yield return new WaitForSeconds(0.1f);
-
-        if (imageAlpha <= 255)
-            StartCoroutine("DisplayFinishedImage", imageAlpha);
-    }
-
-    public void DisplayMessage()
-    {
-        Debug.Log("Hello");
     }
 
     public void SwapTiles(int index1, int index2)
@@ -237,7 +153,6 @@ public class TileManager : MonoBehaviour
             return;
 
         int calledTileIndex = tiles.IndexOf(inputObject);
-        //Debug.Log($"Swapping {calledTileIndex} and {calledTileIndex + 1}");
 
         if (CheckEmptyNearby(calledTileIndex))
             SwapTiles(calledTileIndex, emptyIndex);
@@ -276,11 +191,6 @@ public class TileManager : MonoBehaviour
     {
         Destroy(holder);
         replaySlate.SetActive(true);
-        Invoke("CloseGame", 0.25f);
-    }
-
-    void CloseGame()
-    {
         gameObject.SetActive(false);
     }
 }
