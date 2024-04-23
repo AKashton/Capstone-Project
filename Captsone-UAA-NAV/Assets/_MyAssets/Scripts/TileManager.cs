@@ -1,50 +1,112 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] GameObject tile;
+    [SerializeField] GameObject tile, tileHolder, replaySlate;
     [SerializeField] int dimension = 4;
     [SerializeField] List<Sprite> tileSprites;
     [SerializeField] SpriteRenderer finishedImage;
     [SerializeField] Transform emptyTransform, startTransform;
+    [SerializeField] float castDistance;
 
     List<GameObject> tiles = new List<GameObject>();
-    Vector3 emptyLocation, lowRightBounds;
+    List<int> possibleMoveIndex = new List<int>();
+    Vector3 emptyLocation;
     bool puzzleComplete = false;
+    int emptyIndex = 15;
+    int counter = 0;
+    float minDisplacement = 6f;
+    bool gameStarted = false;
+    GameObject holder;
+    SpriteRenderer lastTileSprite;
 
-    void Awake()
+    void OnEnable()
     {
-        emptyLocation = emptyTransform.position;
-        //emptyLocation = new Vector2(dimension - 1, -(dimension - 1));
-        lowRightBounds = emptyLocation;
+        emptyIndex = dimension * dimension - 1;
+        holder = Instantiate(tileHolder, gameObject.transform.position, Quaternion.identity, transform);
 
         for (int i = 0; i < dimension * dimension; i++)
         {
-            GameObject newTile = Instantiate(tile, startTransform.position + new Vector3((float)(i % dimension) / 10, -(float)(i / dimension) / 10, 0), Quaternion.identity, transform);
-            tiles.Add(newTile);
-            //newTile.GetComponent<Tile>().AssignStartLocation(new Vector2(i % dimension, -i / 2));
+            Vector3 tileLocation = startTransform.position + new Vector3((float)(i % dimension) / 5, -(float)(i / dimension) / 5, -0.02f);
+            GameObject newTile = Instantiate(tile, tileLocation, Quaternion.identity, holder.transform);
 
-            if (i == dimension * dimension - 1)
-                newTile.GetComponent<SpriteRenderer>().color = Color.black;
-            else
-                newTile.GetComponent<SpriteRenderer>().sprite = tileSprites[i];
+            tiles.Add(newTile);
+            newTile.GetComponent<Tile>().AssignStartLocation();
+
+            newTile.GetComponent<SpriteRenderer>().sprite = tileSprites[i];
         }
 
-        //ScrambleTiles(dimension * dimension * 1.25f);
-        //ScrambleTiles(2);
+        emptyLocation = tiles[dimension * dimension - 1].transform.position;
+        lastTileSprite = tiles[dimension * dimension - 1].GetComponent<SpriteRenderer>();
+        lastTileSprite.color = Color.black;
+
+        for (int i = 0; i < 2; i++)
+        {
+            if (!ScrambleTiles())
+                break;
+        }
+
+        Debug.Log(CountTotalDisplacement());
+        gameStarted = true;
     }
 
-    public Vector2 GetEmptyLocation()
+    public Vector3 GetEmptyLocation()
     {
         return emptyLocation;
     }
 
-    public void SetEmptyLocation(Vector2 input)
+    public void SetEmptyLocation(Vector3 input)
     {
         emptyLocation = input;
         tiles[tiles.Count - 1].transform.position = input;
+    }
+
+    bool ScrambleTiles()
+    {
+        float displacement = CountTotalDisplacement();
+
+        if (displacement > minDisplacement)
+        {
+            Debug.Log(displacement);
+            return false;
+        }
+
+        if (counter > 100)
+        {
+            if (displacement > 0.9f * minDisplacement)
+            {
+                Debug.Log(displacement + " Early escape");
+                return false;
+            }
+        }
+        else if (counter > 200)
+        {
+            Debug.Log(displacement + " Escaped");
+            return false;
+        }
+
+        possibleMoveIndex.Clear();
+
+        if (emptyIndex >= dimension) // Empty tile is below top row
+            possibleMoveIndex.Add(emptyIndex - 4);
+
+        if (emptyIndex < (dimension - 1) * dimension) // Empty tile is above bottom row
+            possibleMoveIndex.Add(emptyIndex + 4);
+
+        if (emptyIndex % dimension > 0) // Empty tile is to right of leftmost column
+            possibleMoveIndex.Add(emptyIndex - 1);
+
+        if (emptyIndex % dimension < dimension - 1) // Empty tile is to left of rightmost column
+            possibleMoveIndex.Add(emptyIndex + 1);
+
+        int randomNeighborIndex = Random.Range(0, possibleMoveIndex.Count);
+
+        SwapTiles(possibleMoveIndex[randomNeighborIndex], emptyIndex);
+
+        return true;
     }
 
     void ScrambleTiles(float minDisplacement = 10)
@@ -74,22 +136,28 @@ public class TileManager : MonoBehaviour
             return;
         }
 
-        Collider[] possibleTiles = Physics.OverlapSphere(emptyLocation, 1);
-        List<GameObject> closeTiles = new List<GameObject>();
+        possibleMoveIndex.Clear();
 
-        for (int i = 0; i < possibleTiles.Length; i++)
-        {
-            if (Vector2.Distance(possibleTiles[i].gameObject.transform.position, emptyLocation) <= 1)
-                closeTiles.Add(possibleTiles[i].gameObject);
-        }
-        /*
-        int randomNum = Random.Range(0, closeTiles.Count);
-        closeTiles[randomNum].gameObject.GetComponent<Tile>().AttemptMove();
+        if (emptyIndex >= dimension) // Empty tile is below top row
+            possibleMoveIndex.Add(emptyIndex - 4);
+
+        if (emptyIndex < (dimension - 1) * dimension) // Empty tile is above bottom row
+            possibleMoveIndex.Add(emptyIndex + 4);
+
+        if (emptyIndex % dimension > 0) // Empty tile is to right of leftmost column
+            possibleMoveIndex.Add(emptyIndex - 1);
+
+        if (emptyIndex % dimension < dimension - 1) // Empty tile is to left of rightmost column
+            possibleMoveIndex.Add(emptyIndex + 1);
+
+        int randomNeighborIndex = Random.Range(0, possibleMoveIndex.Count);
+
+        SwapTiles(possibleMoveIndex[randomNeighborIndex], emptyIndex);
+        //Debug.Log(tiles[emptyIndex].GetComponent<Tile>().GetDistanceFromStart());
+
         counter++;
 
         ScrambleTiles(CountTotalDisplacement(), minDisplacement, counter);
-        */
-
     }
 
     public float CountTotalDisplacement()
@@ -104,12 +172,23 @@ public class TileManager : MonoBehaviour
 
     public void CheckFinished()
     {
-        if (CountTotalDisplacement() == 0)
+        if (CountTotalDisplacement() < 0.001f)
         {
-            puzzleComplete = true;
-            Debug.Log("You finished the puzzle!");
-            StartCoroutine("DisplayFinishedImage", 0);
+            gameStarted = false;
+            //puzzleComplete = true;
+            //lastTileSprite.color = Color.white;
+            //Debug.Log("You finished the puzzle!");
+            //StartCoroutine("DisplayFinishedImage", 0);
+
+            lastTileSprite.gameObject.GetComponent<Tile>().FadeWhite();
+
+            for (int i = 0; i < tiles.Count; i++)
+                tiles[i].GetComponent<Tile>().FadeBorder();
+
+            Invoke("OpenReplayScreen", 4);
         }
+        else
+            Debug.Log(CountTotalDisplacement());
     }
 
     public bool CheckPuzzleCompletion()
@@ -134,5 +213,74 @@ public class TileManager : MonoBehaviour
     public void DisplayMessage()
     {
         Debug.Log("Hello");
+    }
+
+    public void SwapTiles(int index1, int index2)
+    {
+        GameObject tempTile = tiles[index1];
+        tiles[index1] = tiles[index2];
+        tiles[index2] = tempTile;
+
+        Vector3 tempPosition = tiles[index1].transform.position;
+        tiles[index1].transform.position = tiles[index2].transform.position;
+        tiles[index2].transform.position = tempPosition;
+
+        emptyIndex = index1;
+
+        if (gameStarted)
+            CheckFinished();
+    }
+
+    public void CallTileSwap(GameObject inputObject)
+    {
+        if (!gameStarted)
+            return;
+
+        int calledTileIndex = tiles.IndexOf(inputObject);
+        //Debug.Log($"Swapping {calledTileIndex} and {calledTileIndex + 1}");
+
+        if (CheckEmptyNearby(calledTileIndex))
+            SwapTiles(calledTileIndex, emptyIndex);
+    }
+
+    bool CheckEmptyNearby(int inputIndex)
+    {
+        if (inputIndex >= dimension) // Clicked tile is below top row
+        {
+            if (emptyIndex == inputIndex - dimension) // Empty is above clicked tile
+                return true;
+        }
+        
+        if (inputIndex < (dimension - 1) * dimension) // Clicked tile is above bottom row
+        {
+            if (emptyIndex == inputIndex + dimension) // Empty is below clicked tile
+                return true;
+        }
+
+        if (inputIndex % dimension > 0) // Clicked tile is to right of leftmost column
+        {
+            if (emptyIndex == inputIndex - 1) // Empty tile is to left of clicked tile
+                return true;
+        }
+
+        if (inputIndex % dimension < dimension - 1) // Clicked tile is to left of rightmost column
+        {
+            if (emptyIndex == inputIndex + 1) // Empty tile is to right of leftmost column
+                return true;
+        }
+
+        return false;
+    }
+
+    void OpenReplayScreen()
+    {
+        Destroy(holder);
+        replaySlate.SetActive(true);
+        Invoke("CloseGame", 0.25f);
+    }
+
+    void CloseGame()
+    {
+        gameObject.SetActive(false);
     }
 }
