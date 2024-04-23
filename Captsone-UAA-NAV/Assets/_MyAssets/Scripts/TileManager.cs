@@ -8,7 +8,6 @@ public class TileManager : MonoBehaviour
     [SerializeField] GameObject tile, tileHolder, replaySlate;
     [SerializeField] int dimension = 4;
     [SerializeField] List<Sprite> tileSprites;
-    [SerializeField] SpriteRenderer finishedImage;
     [SerializeField] Transform emptyTransform, startTransform;
 
     List<GameObject> tiles = new List<GameObject>();
@@ -42,7 +41,7 @@ public class TileManager : MonoBehaviour
         lastTileSprite = tiles[dimension * dimension - 1].GetComponent<SpriteRenderer>();
         lastTileSprite.color = Color.black;
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 200; i++)
         {
             if (!ScrambleTiles())
                 break;
@@ -122,7 +121,7 @@ public class TileManager : MonoBehaviour
         if (CountTotalDisplacement() < 0.001f)
         {
             gameStarted = false;
-            lastTileSprite.gameObject.GetComponent<Tile>().FadeWhite();
+            tiles[dimension * dimension - 1].GetComponent<Tile>().FadeWhite();
 
             for (int i = 0; i < tiles.Count; i++)
                 tiles[i].GetComponent<Tile>().FadeBorder();
