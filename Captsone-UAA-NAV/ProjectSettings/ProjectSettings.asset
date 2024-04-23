@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: __CAPSTONE-UAA-NAV
+  productName: _CAPSTONE-UAA-NAV
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -137,11 +137,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1
-  preloadedAssets:
-  - {fileID: 11400000, guid: c677e5c4eb85b7849a8da406775c299d, type: 2}
-  - {fileID: 2143943735744721267, guid: 0a2c24acda705824696932ad8ab70552, type: 2}
-  - {fileID: 11400000, guid: b7c0a9ad07eeab74a81b9e7fc7bc4df5, type: 2}
-  - {fileID: 1966272245814173134, guid: 7ccb43a3a7f15c24c86cd09795b703b8, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

@@ -1,3 +1,4 @@
+using MixedReality.Toolkit.SpatialManipulation;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,7 @@ public class TileManager : MonoBehaviour
     [SerializeField] int dimension = 4;
     [SerializeField] List<Sprite> tileSprites;
     [SerializeField] Transform emptyTransform, startTransform;
+    [SerializeField] SolverHandler solverHandler;
 
     List<GameObject> tiles = new List<GameObject>();
     List<int> possibleMoveIndex = new List<int>();
@@ -28,7 +30,7 @@ public class TileManager : MonoBehaviour
 
         for (int i = 0; i < dimension * dimension; i++)
         {
-            Vector3 tileLocation = startTransform.position + new Vector3((float)(i % dimension) / 5, -(float)(i / dimension) / 5, -0.02f);
+            Vector3 tileLocation = startTransform.position + new Vector3((float)(i % dimension) / 5, -(float)(i / dimension) / 5, -0.05f);
             GameObject newTile = Instantiate(tile, tileLocation, Quaternion.identity, holder.transform);
 
             tiles.Add(newTile);
@@ -197,5 +199,10 @@ public class TileManager : MonoBehaviour
     {
         Destroy(holder);
         gameObject.SetActive(false);
+    }
+
+    public void TogglePin()
+    {
+        solverHandler.UpdateSolvers = !solverHandler.UpdateSolvers;
     }
 }
