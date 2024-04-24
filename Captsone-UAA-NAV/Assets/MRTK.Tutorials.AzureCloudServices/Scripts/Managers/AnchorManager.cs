@@ -34,7 +34,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         [SerializeField] private AnchorPosition anchorPositionPrefab = default;
         [SerializeField] private GameObject objectCardPrefab;
         [SerializeField] private AnchorArrowGuide anchorArrowGuide = default;
-
+        [SerializeField] DataManager dataManager;
         private Dictionary<string, AnchorPosition> activeAnchors = new Dictionary<string, AnchorPosition>();
         private CloudSpatialAnchor currentCloudAnchor;
         private AnchorLocateCriteria anchorLocateCriteria;
@@ -221,6 +221,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     Debug.Log($"Current Azure anchor ID updated to '{currentCloudAnchor.Identifier}'");
 
                     currentTrackedObject.SpatialAnchorId = currentCloudAnchor.Identifier;
+                    currentTrackedObject.MapName = PageManager.MapLocation;
                     activeAnchors.Add(currentTrackedObject.SpatialAnchorId, anchorPositionIndicator);
                     // Notify subscribers
                     Debug.Log("OnCreateAnchorSucceeded?.Invoke(this, currentCloudAnchor.Identifier)");
@@ -250,6 +251,45 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             }
 
             StopAzureSession();
+        }
+
+        /// <summary>
+        /// Starts Azure Spatial Anchors find anchor process for multiple anchors.
+        /// </summary>
+        /// <param name="mapName">The name of the map to find anchors for.</param>
+        public async void FindAnchorsForMap()
+        {
+            List<string> anchorIds = await dataManager.GetAnchorIdsByMapName(PageManager.MapLocation);
+            if (anchorIds == null || anchorIds.Count == 0)
+            {
+                Debug.LogError("No anchors found for the map: " + PageManager.MapLocation);
+                return;
+            }
+
+            anchorCreationController.StartProgressIndicatorSession();
+
+            if (cloudManager.Session == null) // Creates a new session if one does not exist
+                await cloudManager.CreateSessionAsync();
+
+            // Starts the session if not already started
+            await cloudManager.StartSessionAsync();
+
+            Debug.Log($"Trying to find anchors for map {PageManager.MapLocation} with anchor IDs: {string.Join(", ", anchorIds)}");
+            anchorLocateCriteria = new AnchorLocateCriteria
+            {
+                Identifiers = anchorIds.ToArray()
+            };
+
+            // Start watching for Anchors
+            if (cloudManager != null && cloudManager.Session != null)
+                currentWatcher = cloudManager.Session.CreateWatcher(anchorLocateCriteria);
+            else
+            {
+                Debug.Log("Attempt to create watcher failed, no session exists");
+                currentWatcher = null;
+            }
+            
+            Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
         }
 
         async void FindAsaAnchor()

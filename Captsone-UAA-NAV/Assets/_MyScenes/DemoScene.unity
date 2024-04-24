@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -816,13 +816,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5092507606405556712, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1811028555225687572, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
 --- !u!4 &232956233 stripped
 Transform:
@@ -2559,6 +2553,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 840231123, guid: 24fbc619b06f41240ab10f637cde6e17, type: 3}
+      propertyPath: dataManager
+      value: 
+      objectReference: {fileID: 2105523167}
     - target: {fileID: 828838689807954120, guid: 24fbc619b06f41240ab10f637cde6e17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2858,13 +2856,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5092507606405556712, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1811028555225687572, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c25d8f2d22117bd40ad824684551fbde, type: 3}
 --- !u!4 &967495938 stripped
 Transform:
@@ -4774,17 +4766,6 @@ Transform:
   - {fileID: 4102960472884994516}
   m_Father: {fileID: 496945516}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1854860143 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 107970606305625784, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
-  m_PrefabInstance: {fileID: 7001171497689114049}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eb5367a46da72e4d968621e232799ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1858548902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14267,12 +14248,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1937786745108263491, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937786745108263491, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1854860143}
+      objectReference: {fileID: 928484531}
     - target: {fileID: 1937786745108263491, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: FindAllAnchors
+      value: FindAnchorsForMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 1937786745108263491, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MRTK.Tutorials.AzureCloudServices.Scripts.Managers.AnchorManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2391416502368139954, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
       propertyPath: m_LocalPosition.x
