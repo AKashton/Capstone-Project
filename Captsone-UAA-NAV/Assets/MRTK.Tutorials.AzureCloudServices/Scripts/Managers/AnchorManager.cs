@@ -292,10 +292,17 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 Debug.Log("Attempt to create watcher failed, no session exists");
                 currentWatcher = null;
             }
-            
+
+            GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
+
             Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
             debugSlate.SetActive(true);
-            textMeshPro.text = $"The amount of Anchor IDs is: {anchorIds.Count}";
+            textMeshPro.text = $"The amount of nodes is: {nodes.Length}";
+
+            
+
+            //for (int i = 0; i < nodes.Length; i++)
+            //    nodes[i].GetComponent<AnchorPosition>().Init();
         }
 
         async void FindAsaAnchor()
