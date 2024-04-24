@@ -14,6 +14,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Domain
         public string CustomVisionTagId { get; set; } // for simplicity there is one tag per project
         public string CustomVisionTagName { get; set; }
         public bool HasBeenTrained { get; set; }
+        public string MapName { get; set; }  
 
         public TrackedObject() { }
 

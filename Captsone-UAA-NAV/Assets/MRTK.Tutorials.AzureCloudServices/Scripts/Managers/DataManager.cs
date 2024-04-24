@@ -192,6 +192,22 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         }
 
         /// <summary>
+        /// Retrieve all anchor IDs by a specific map name.
+        /// </summary>
+        /// <param name="mapName">The map name to query by.</param>
+        /// <returns>List of anchor IDs matching the map name.</returns>
+        public async Task<List<string>> GetAnchorIdsByMapName(string mapName)
+        {
+            var query = new TableQuery<TrackedObject>().Where(
+                TableQuery.GenerateFilterCondition("MapName", QueryComparisons.Equal, mapName));
+            var segment = await trackedObjectsTable.ExecuteQuerySegmentedAsync(query, null);
+            var anchorIds = segment.Select(trackedObject => trackedObject.SpatialAnchorId).ToList();
+
+            return anchorIds;
+        }
+
+
+        /// <summary>
         /// Delete a TrackedObjectProject from the table.
         /// </summary>
         /// <param name="instance">Object to delete.</param>
