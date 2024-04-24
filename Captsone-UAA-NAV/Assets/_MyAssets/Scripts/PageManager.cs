@@ -26,51 +26,21 @@ public class PageManager : MonoBehaviour
     public static string MapLocation = "ADSAIL1";
 
     [SerializeField] List<Location> locations = new List<Location>();
-    [SerializeField] List<Sprite> wolfPages, wolfCircle, posterPages;
+    [SerializeField] List<Sprite> gameSprites;
     [SerializeField] GameObject objectController;
     [SerializeField] GameObject wolfGazeGame, puzzleGame;
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
     //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
 
-    /*string s1 = "hellothere", s2 = "hello";
-    private void Awake()
-    {
-        int stringIndex = s1.IndexOf(s2);
-        s1 = s1.Remove(stringIndex, s2.Length);
-        Debug.Log(s1);
-    }*/
-
-    /*
-    public int GetNumberWolfPages()
-    {
-        return wolfPages.Count;
-    }
-
-    public int GetNumberPosterPages()
-    {
-        return posterPages.Count;
-    }
-
-    public Sprite GetWolfPage(int index)
-    {
-        return wolfPages[index];
-    }
-
-    public Sprite GetWolfCircle()
-    {
-        return wolfCircle[0];
-    }
-
-    public Sprite GetPosterPage(int index)
-    {
-        return posterPages[index];
-    }
-    */
-
     public void ActivateController(bool input)
     {
         objectController.SetActive(input);
+    }
+
+    public Sprite GetGameSprite(int index)
+    {
+        return gameSprites[index];
     }
 
     public void EnableGazeGame()

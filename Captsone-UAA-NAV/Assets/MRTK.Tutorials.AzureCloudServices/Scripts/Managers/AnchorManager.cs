@@ -27,25 +27,25 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public event EventHandler OnPlaceAnchorCanceled;
         
         [Header("Anchor Manager")]
-        [SerializeField] private SpatialAnchorManager cloudManager = default;
+        [SerializeField] SpatialAnchorManager cloudManager = default;
         [Header("Controller")]
-        [SerializeField] private AnchorPlacementController anchorPlacementController = default;
-        [SerializeField] private AnchorCreationController anchorCreationController = default;
+        [SerializeField] AnchorPlacementController anchorPlacementController = default;
+        [SerializeField] AnchorCreationController anchorCreationController = default;
         [Header("UX")]
-        [SerializeField] private AnchorPosition anchorPositionPrefab = default;
-        [SerializeField] private GameObject objectCardPrefab;
-        [SerializeField] private AnchorArrowGuide anchorArrowGuide = default;
+        [SerializeField] AnchorPosition anchorPositionPrefab = default;
+        [SerializeField] GameObject objectCardPrefab;
+        [SerializeField] AnchorArrowGuide anchorArrowGuide = default;
         [SerializeField] DataManager dataManager;
         [SerializeField] TextMeshPro textMeshPro;
         [SerializeField] GameObject debugSlate;
 
-        private Dictionary<string, AnchorPosition> activeAnchors = new Dictionary<string, AnchorPosition>();
-        private CloudSpatialAnchor currentCloudAnchor;
-        private AnchorLocateCriteria anchorLocateCriteria;
-        private CloudSpatialAnchorWatcher currentWatcher;
-        private TrackedObject currentTrackedObject;
+        Dictionary<string, AnchorPosition> activeAnchors = new Dictionary<string, AnchorPosition>();
+        CloudSpatialAnchor currentCloudAnchor;
+        AnchorLocateCriteria anchorLocateCriteria;
+        CloudSpatialAnchorWatcher currentWatcher;
+        TrackedObject currentTrackedObject;
 
-        private void Start()
+        void Start()
         {
             // Subscribe to Azure Spatial Anchor events
             cloudManager.AnchorLocated += HandleAnchorLocated;
@@ -105,12 +105,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             Debug.Log("Anchor position has been set, saving location process started.");
 
-            /*
-            if (Application.isEditor)
-                CreateAsaAnchorEditor(indicatorTransform);
-            else
-            */
-
             CreateAsaAnchor(indicatorTransform);
         }
 
@@ -122,34 +116,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public void FindAnchor(TrackedObject trackedObject)
         {
             currentTrackedObject = trackedObject;
-
-            /*
-            if (Application.isEditor)
-                FindAsaAnchorEditor();
-            else
-            */
             
             FindAsaAnchor();
         }
-
-        /*
-        private async void CreateAsaAnchorEditor(Transform indicatorTransform)
-        {
-            var indicator = Instantiate(anchorPositionPrefab, indicatorTransform.position, indicatorTransform.rotation);
-            anchorCreationController.StartProgressIndicatorSession();
-            await Task.Delay(2500);
-            var mockAnchorId = Guid.NewGuid().ToString();
-            currentTrackedObject.SpatialAnchorId = mockAnchorId;
-            activeAnchors.Add(currentTrackedObject.SpatialAnchorId, indicator);
-
-            AppDispatcher.Instance().Enqueue(() =>
-            {
-                indicator.Init(currentTrackedObject);
-                OnCreateAnchorSucceeded?.Invoke(this, mockAnchorId);
-                currentTrackedObject = null;
-            });
-        }
-        */
 
         async void CreateAsaAnchor(Transform indicatorTransform)
         {
@@ -264,9 +233,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public async void FindAnchorsForMap()
         {
             List<string> anchorIds = await dataManager.GetAnchorIdsByMapName(PageManager.MapLocation);
-            int counter = 1;
-
-            while (anchorIds.Count > 0)
+            //int counter = 1;
+            
+            //while (anchorIds.Count > 0)
             {
                 if (anchorIds == null || anchorIds.Count == 0)
                 {
@@ -297,6 +266,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     currentWatcher = null;
                 }
 
+                /*
                 GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
 
                 //Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
@@ -308,6 +278,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
                 await Task.Delay(250);
                 counter++;
+                */
             }
             
 
@@ -339,26 +310,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             }
         }
 
-        /*
-        private async void FindAsaAnchorEditor()
-        {
-            anchorCreationController.StartProgressIndicatorSession();
-            await Task.Delay(3000);
-            
-            var targetPosition = Camera.main.transform.position;
-            targetPosition.z += 0.5f;
-            var indicator = Instantiate(anchorPositionPrefab);
-            indicator.transform.position = targetPosition;
-            indicator.Init(currentTrackedObject);
-            anchorArrowGuide.SetTargetObject(indicator.transform);
-
-            // Notify subscribers
-            activeAnchors.Add(currentTrackedObject.SpatialAnchorId, indicator);
-            AppDispatcher.Instance().Enqueue(() => OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty));
-            currentTrackedObject = null;
-        }
-        */
-
         async void StopAzureSession()
         {
             // Reset the current session if there is one, and wait for any active queries to be stopped
@@ -377,7 +328,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             {
                 currentCloudAnchor = args.Anchor;
 
-                AppDispatcher.Instance().Enqueue(() =>
+                AppDispatcher.Instance().Enqueue(async () =>
                 {
                     Debug.Log($"Azure anchor located successfully");
                     var indicator = Instantiate(anchorPositionPrefab);
@@ -412,9 +363,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     indicator.gameObject.CreateNativeAnchor();
 #endif
 
-                    indicator.Init(currentTrackedObject);
+                    TrackedObject tempTrackedObject = await dataManager.FindTrackedObjectById(currentCloudAnchor.Identifier);
+
+                    indicator.Init(tempTrackedObject);
                     anchorArrowGuide.SetTargetObject(indicator.transform);
-                    activeAnchors.Add(currentTrackedObject.SpatialAnchorId, indicator);
+                    activeAnchors.Add(tempTrackedObject.SpatialAnchorId, indicator);
 
                     // Notify subscribers
                     OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty);

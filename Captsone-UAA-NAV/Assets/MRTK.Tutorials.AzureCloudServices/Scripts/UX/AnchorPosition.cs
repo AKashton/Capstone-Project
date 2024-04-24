@@ -48,7 +48,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 int stringIndex = s1.IndexOf(s2);
                 s1 = s1.Remove(stringIndex, s2.Length);
 
-                //pointOfInterest = pageManager.GetLocation().pointsOfInterest[trackedObject.Name[trackedObject.Name.Length - 1] - '0'];
                 pointOfInterest = pageManager.GetLocation().pointsOfInterest[int.Parse(s1)];
 
                 if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
@@ -59,17 +58,12 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.CONNECTING)
                     spriteRenderer.enabled = false;
+                else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
+                    spriteRenderer.sprite = pageManager.GetGameSprite(0);
+                else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
+                    spriteRenderer.sprite = pageManager.GetGameSprite(1);
                 else
                     spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
-
-                /*
-                if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
-                    spriteRenderer.sprite = pageManager.GetWolfPage(0);
-                else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
-                    spriteRenderer.sprite = pageManager.GetWolfCircle();
-                else if (trackedObject.Name[trackedObject.Name.Length - 1] == '2')
-                    spriteRenderer.sprite = pageManager.GetPosterPage(0);
-                */
 
                 objectCard.Init(trackedObject);
             }
@@ -86,35 +80,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 pageManager.EnableGazeGame();
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
                 pageManager.EnablePuzzleGame();
-
-            /*
-            if (trackedObject.Name[trackedObject.Name.Length - 1] == '0') // was int.Parse(trackedObject.Name)
-            {
-                pictureIndex = (pictureIndex + 1) % pageManager.GetNumberWolfPages();
-                spriteRenderer.sprite = pageManager.GetWolfPage(pictureIndex);
-            }
-            else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
-                pageManager.EnableGazeGame();
-            else
-            {
-                pictureIndex = (pictureIndex + 1) % pageManager.GetNumberPosterPages();
-                spriteRenderer.sprite = pageManager.GetPosterPage(pictureIndex);
-            }
-            */
         }
 
         public void FindNextPosition()
         {
             TrackedObject nextObject;
-
-            /*
-            if (trackedObject.Name[trackedObject.Name.Length - 1] == '0')
-                nextObject = pageManager.GetTrackedObject(1);
-            else if (trackedObject.Name[trackedObject.Name.Length - 1] == '1')
-                nextObject = pageManager.GetTrackedObject(2);
-            else
-                nextObject = pageManager.GetTrackedObject(0);
-            */
 
             nextObject = pageManager.GetTrackedObject(int.Parse(pointOfInterest.nextpointNumber));
 
@@ -123,15 +93,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
             AnchorManager anchorManager = GameObject.FindWithTag("AnchorManager").GetComponent<AnchorManager>();
             anchorManager.GuideToAnchor(nextObject.SpatialAnchorId);
-            //anchorManager.FindAnchor(nextObject);
-
-            //pageManager.ActivateController(true);
-            //FindObjectOfType<ObjectEntryController>().SubmitQuery((int.Parse(trackedObject.Name) + 1) % 3 + 3); // 3 nodes for demo
         }
 
         public TrackedObject CheckAnchorIntName(int input)
         {
-            if (trackedObject.Name == PageManager.MapLocation + (char)input)
+            if (trackedObject.Name == PageManager.MapLocation + input.ToString())
                 return trackedObject;
             else
                 return null;

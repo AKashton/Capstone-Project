@@ -1188,20 +1188,13 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
       - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
       nextpointNumber: 2
-    - nodeType: 2
-      nodeSprites: []
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
       nextpointNumber: 0
-  wolfPages:
-  - {fileID: 21300000, guid: fa930e8995ce0ac41a47e2b84d80f872, type: 3}
-  - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
-  - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
-  wolfCircle:
+  gameSprites:
   - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
-  posterPages:
-  - {fileID: 21300000, guid: 06dea2540f2a13043b4d7c9137848e52, type: 3}
-  - {fileID: 21300000, guid: 2ccc786f2f01ac243b1ee7fc7b84e402, type: 3}
-  - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
-  - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
+  - {fileID: 21300000, guid: 41516fb90b1a29f46967adfc8f5d1a85, type: 3}
   objectController: {fileID: 117504112}
   wolfGazeGame: {fileID: 1421934616}
   puzzleGame: {fileID: 2109340796}
