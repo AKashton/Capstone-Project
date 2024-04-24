@@ -371,7 +371,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 
                     // Notify subscribers
                     OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty);
-                    currentWatcher?.Stop();
+                    //currentWatcher?.Stop();
                     currentTrackedObject = null;
                 });
             }
