@@ -326,7 +326,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             
             if (args.Status == LocateAnchorStatus.Located || args.Status == LocateAnchorStatus.AlreadyTracked)
             {
-                currentCloudAnchor = args.Anchor;
+                CloudSpatialAnchor tempCloudAnchor = args.Anchor;
 
                 AppDispatcher.Instance().Enqueue(async () =>
                 {
@@ -340,15 +340,15 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 // so we are ready to commit the anchor to the cloud if requested.
                 // If we do have a cloudAnchor, we will use it's pointer to setup the world anchor,
                 // which will position the object automatically.
-                if (currentCloudAnchor != null)
+                if (tempCloudAnchor != null)
                 {
                     Debug.Log("Local anchor position successfully set to Azure anchor position");
                     Pose anchorPose = Pose.identity;
-                    anchorPose = currentCloudAnchor.GetPose();
+                    anchorPose = tempCloudAnchor.GetPose();
 
                     Debug.Log($"Setting object to anchor pose with position '{anchorPose.position}' and rotation '{anchorPose.rotation}'");
 
-                    indicator.gameObject.AddComponent<CloudNativeAnchor>().CloudToNative(currentCloudAnchor);
+                    indicator.gameObject.AddComponent<CloudNativeAnchor>().CloudToNative(tempCloudAnchor);
                 }
 
 #elif UNITY_ANDROID || UNITY_IOS
@@ -363,7 +363,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     indicator.gameObject.CreateNativeAnchor();
 #endif
 
-                    TrackedObject tempTrackedObject = await dataManager.FindTrackedObjectById(currentCloudAnchor.Identifier);
+                    TrackedObject tempTrackedObject = await dataManager.FindTrackedObjectById(tempCloudAnchor.Identifier);
 
                     indicator.Init(tempTrackedObject);
                     anchorArrowGuide.SetTargetObject(indicator.transform);
