@@ -380,7 +380,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 Debug.Log($"Attempt to locate Anchor with ID '{args.Identifier}' failed, locate anchor status was not 'Located' but '{args.Status}'");
             }
 
-            StopAzureSession();
+            //StopAzureSession();
         }
         
         void HandleOnAnchorPlaced(object sender, Transform indicatorTransform)
