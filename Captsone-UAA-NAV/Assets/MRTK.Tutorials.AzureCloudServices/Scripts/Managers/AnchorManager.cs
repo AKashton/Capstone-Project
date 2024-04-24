@@ -11,6 +11,7 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Domain;
 using MRTK.Tutorials.AzureCloudServices.Scripts.Utilities;
 using MRTK.Tutorials.AzureCloudServices.Scripts.UX;
 using UnityEngine;
+using TMPro;
 
 namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 {
@@ -35,6 +36,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         [SerializeField] private GameObject objectCardPrefab;
         [SerializeField] private AnchorArrowGuide anchorArrowGuide = default;
         [SerializeField] DataManager dataManager;
+        [SerializeField] TextMeshPro textMeshPro;
+        [SerializeField] GameObject debugSlate;
+
         private Dictionary<string, AnchorPosition> activeAnchors = new Dictionary<string, AnchorPosition>();
         private CloudSpatialAnchor currentCloudAnchor;
         private AnchorLocateCriteria anchorLocateCriteria;
@@ -290,6 +294,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             }
             
             Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
+            debugSlate.SetActive(true);
+            textMeshPro.text = $"The amount of Anchor IDs is: {anchorIds.Count}";
         }
 
         async void FindAsaAnchor()
