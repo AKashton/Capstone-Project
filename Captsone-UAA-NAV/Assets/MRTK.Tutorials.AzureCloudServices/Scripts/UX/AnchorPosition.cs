@@ -24,7 +24,6 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         PageManager pageManager;
         PageManager.PointOfInterest pointOfInterest;
         int pictureIndex = 0;
-        string objectLocation;
         public string anchorID { get; set; }
 
         void Awake()
@@ -78,6 +77,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public void EngagePosition()
         {
+            GameObject.FindWithTag("AnchorManager").GetComponent<AnchorManager>().DisplayAssignedID(anchorID);
+
+            /*
             if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.IMAGE)
             {
                 pictureIndex = (pictureIndex + 1) % pointOfInterest.nodeSprites.Count;
@@ -87,6 +89,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 pageManager.EnableGazeGame();
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
                 pageManager.EnablePuzzleGame();
+            */
         }
 
         public void FindNextPosition()

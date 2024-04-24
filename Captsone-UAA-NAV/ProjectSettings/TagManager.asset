@@ -10,6 +10,7 @@ TagManager:
   - AnchorManager
   - TileManager
   - DataManager
+  - DebugSlate
   layers:
   - Default
   - TransparentFX

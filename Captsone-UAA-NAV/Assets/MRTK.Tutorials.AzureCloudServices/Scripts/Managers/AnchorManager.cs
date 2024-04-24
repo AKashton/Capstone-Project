@@ -376,5 +376,11 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             anchorPlacementController.gameObject.SetActive(false);
         }
         #endregion
+
+        public void DisplayAssignedID(string input)
+        {
+            debugSlate.SetActive(true);
+            textMeshPro.text = input;
+        }
     }
 }
