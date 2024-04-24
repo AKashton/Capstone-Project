@@ -25,10 +25,17 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
         PageManager.PointOfInterest pointOfInterest;
         int pictureIndex = 0;
         string objectLocation;
+        public string anchorID { get; set; }
 
         void Awake()
         {
             pageManager = GameObject.FindWithTag("PageManager").GetComponent<PageManager>();
+        }
+
+        public async void GetTrackedSource()
+        {
+            trackedObject = await GameObject.FindWithTag("DataManager").GetComponent<DataManager>().FindTrackedObjectById(anchorID);
+            StartCoroutine(DelayedInitCoroutine());
         }
 
         public void Init(TrackedObject source)

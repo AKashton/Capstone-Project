@@ -31,7 +31,6 @@ public class PageManager : MonoBehaviour
     [SerializeField] GameObject wolfGazeGame, puzzleGame;
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
-    //[SerializeField] MRTK.Tutorials.AzureCloudServices.Scripts.Controller.ObjectCardViewController viewController;
 
     public void ActivateController(bool input)
     {

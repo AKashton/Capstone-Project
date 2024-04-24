@@ -12,6 +12,7 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Utilities;
 using MRTK.Tutorials.AzureCloudServices.Scripts.UX;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
 {
@@ -265,25 +266,20 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     Debug.Log("Attempt to create watcher failed, no session exists");
                     currentWatcher = null;
                 }
-
-                /*
-                GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
-
-                //Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
-                debugSlate.SetActive(true);
-                textMeshPro.text = $"The amount of checks is: {counter}";
-
-                for (int i = 0; i < nodes.Length; i++)
-                    anchorIds.Remove(nodes[i].GetComponent<AnchorPosition>().TrackedObject.SpatialAnchorId);
-
-                await Task.Delay(250);
-                counter++;
-                */
             }
-            
+        }
+        /*
+        public void InitializeAllNodes()
+        {
+            GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
 
-            //for (int i = 0; i < nodes.Length; i++)
-            //    nodes[i].GetComponent<AnchorPosition>().Init();
+            for (int i = 0; i < )
+        }
+        */
+        public async void InitializeNode(string anchorID)
+        {
+            TrackedObject tempObject = await dataManager.FindTrackedObjectById(anchorID);
+
         }
 
         async void FindAsaAnchor()
@@ -324,22 +320,16 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         {
             Debug.Log($"Anchor recognized as a possible Azure anchor");
             
-            if (args.Status == LocateAnchorStatus.Located || args.Status == LocateAnchorStatus.AlreadyTracked)
+            if (args.Status == LocateAnchorStatus.Located) // || args.Status == LocateAnchorStatus.AlreadyTracked
             {
                 CloudSpatialAnchor tempCloudAnchor = args.Anchor;
 
-                AppDispatcher.Instance().Enqueue(async () =>
+                AppDispatcher.Instance().Enqueue(() =>
                 {
                     Debug.Log($"Azure anchor located successfully");
-                    var indicator = Instantiate(anchorPositionPrefab);
+                    AnchorPosition indicator = Instantiate(anchorPositionPrefab);
+                    indicator.anchorID = tempCloudAnchor.Identifier;
 
-#if WINDOWS_UWP || UNITY_WSA
-                // HoloLens: The position will be set based on the unityARUserAnchor that was located.
-                // On HoloLens, if we do not have a cloudAnchor already, we will have already positioned the
-                // object based on the passed in worldPos/worldRot and attached a new world anchor,
-                // so we are ready to commit the anchor to the cloud if requested.
-                // If we do have a cloudAnchor, we will use it's pointer to setup the world anchor,
-                // which will position the object automatically.
                 if (tempCloudAnchor != null)
                 {
                     Debug.Log("Local anchor position successfully set to Azure anchor position");
@@ -351,29 +341,20 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     indicator.gameObject.AddComponent<CloudNativeAnchor>().CloudToNative(tempCloudAnchor);
                 }
 
-#elif UNITY_ANDROID || UNITY_IOS
-                    Pose anchorPose = Pose.identity;
-                    anchorPose = currentCloudAnchor.GetPose();
-
-                    Debug.Log($"Setting object to anchor pose with position '{anchorPose.position}' and rotation '{anchorPose.rotation}'");
-                    indicator.transform.position = anchorPose.position;
-                    indicator.transform.rotation = anchorPose.rotation;
-
-                    // Create a native anchor at the location of the object in question
-                    indicator.gameObject.CreateNativeAnchor();
-#endif
-
+                    indicator.GetTrackedSource();
+                /*
                     TrackedObject tempTrackedObject = await dataManager.FindTrackedObjectById(tempCloudAnchor.Identifier);
 
                     indicator.Init(tempTrackedObject);
                     anchorArrowGuide.SetTargetObject(indicator.transform);
                     activeAnchors.Add(tempTrackedObject.SpatialAnchorId, indicator);
-
+                */
                     // Notify subscribers
                     OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty);
                     //currentWatcher?.Stop();
                     currentTrackedObject = null;
-                });
+                }
+                );
             }
             else
             {

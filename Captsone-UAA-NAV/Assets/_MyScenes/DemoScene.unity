@@ -5689,6 +5689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DataManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3592718400668087301, guid: 375369510d9c8fd428ed10a1f6bef485, type: 3}
+      propertyPath: m_TagString
+      value: DataManager
+      objectReference: {fileID: 0}
     - target: {fileID: 9157887926618156860, guid: 375369510d9c8fd428ed10a1f6bef485, type: 3}
       propertyPath: connectionString
       value: DefaultEndpointsProtocol=https;AccountName=azurestoragepractice7;AccountKey=tNbyiR1jrU47v5do7YUNUlB4M0qEOTyGpSDcb1108KeRBegZrXjYZqMn6DZpxvf3C5wNavrDVZl++ASt/G4jNA==;EndpointSuffix=core.windows.net
