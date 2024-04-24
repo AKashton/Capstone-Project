@@ -300,7 +300,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                 GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
 
                 //Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
-                //debugSlate.SetActive(true);
+                debugSlate.SetActive(true);
                 textMeshPro.text = $"The amount of checks is: {counter}";
 
                 for (int i = 0; i < nodes.Length; i++)
