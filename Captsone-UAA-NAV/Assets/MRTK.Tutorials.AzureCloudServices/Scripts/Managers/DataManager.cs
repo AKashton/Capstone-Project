@@ -191,6 +191,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
             return segment.Results.FirstOrDefault();
         }
 
+        public async Task<TrackedObject> FindTrackedObjectBySpatialID(string trackedObjectName)
+        {
+            var query = new TableQuery<TrackedObject>().Where(
+                TableQuery.CombineFilters(
+                    TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, partitionKey),
+                    TableOperators.And,
+                    TableQuery.GenerateFilterCondition("SpatialAnchorId", QueryComparisons.Equal, trackedObjectName)));
+            var segment = await trackedObjectsTable.ExecuteQuerySegmentedAsync(query, null);
+
+            return segment.Results.FirstOrDefault();
+        }
+
         /// <summary>
         /// Retrieve all anchor IDs by a specific map name.
         /// </summary>

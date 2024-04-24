@@ -7,6 +7,7 @@ using MRTK.Tutorials.AzureCloudServices.Scripts.Domain;
 using MRTK.Tutorials.AzureCloudServices.Scripts.Managers;
 using TMPro;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 {
@@ -33,7 +34,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public async void GetTrackedSource()
         {
-            trackedObject = await GameObject.FindWithTag("DataManager").GetComponent<DataManager>().FindTrackedObjectById(anchorID);
+            trackedObject = await GameObject.FindWithTag("DataManager").GetComponent<DataManager>().FindTrackedObjectBySpatialID(anchorID);
             StartCoroutine(DelayedInitCoroutine());
         }
 
@@ -77,9 +78,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public void EngagePosition()
         {
-            GameObject.FindWithTag("AnchorManager").GetComponent<AnchorManager>().DisplayAssignedID(anchorID);
+            //GameObject.FindWithTag("AnchorManager").GetComponent<AnchorManager>().DisplayAssignedID(anchorID);
 
-            /*
+            
             if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.IMAGE)
             {
                 pictureIndex = (pictureIndex + 1) % pointOfInterest.nodeSprites.Count;
@@ -89,7 +90,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 pageManager.EnableGazeGame();
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
                 pageManager.EnablePuzzleGame();
-            */
+            
         }
 
         public void FindNextPosition()
