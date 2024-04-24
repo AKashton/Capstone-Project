@@ -264,41 +264,51 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
         public async void FindAnchorsForMap()
         {
             List<string> anchorIds = await dataManager.GetAnchorIdsByMapName(PageManager.MapLocation);
-            if (anchorIds == null || anchorIds.Count == 0)
+            int counter = 1;
+
+            while (anchorIds.Count > 0)
             {
-                Debug.LogError("No anchors found for the map: " + PageManager.MapLocation);
-                return;
+                if (anchorIds == null || anchorIds.Count == 0)
+                {
+                    Debug.LogError("No anchors found for the map: " + PageManager.MapLocation);
+                    return;
+                }
+
+                anchorCreationController.StartProgressIndicatorSession();
+
+                if (cloudManager.Session == null) // Creates a new session if one does not exist
+                    await cloudManager.CreateSessionAsync();
+
+                // Starts the session if not already started
+                await cloudManager.StartSessionAsync();
+
+                Debug.Log($"Trying to find anchors for map {PageManager.MapLocation} with anchor IDs: {string.Join(", ", anchorIds)}");
+                anchorLocateCriteria = new AnchorLocateCriteria
+                {
+                    Identifiers = anchorIds.ToArray()
+                };
+
+                // Start watching for Anchors
+                if (cloudManager != null && cloudManager.Session != null)
+                    currentWatcher = cloudManager.Session.CreateWatcher(anchorLocateCriteria);
+                else
+                {
+                    Debug.Log("Attempt to create watcher failed, no session exists");
+                    currentWatcher = null;
+                }
+
+                GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
+
+                //Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
+                //debugSlate.SetActive(true);
+                textMeshPro.text = $"The amount of checks is: {counter}";
+
+                for (int i = 0; i < nodes.Length; i++)
+                    anchorIds.Remove(nodes[i].GetComponent<AnchorPosition>().TrackedObject.SpatialAnchorId);
+
+                await Task.Delay(250);
+                counter++;
             }
-
-            anchorCreationController.StartProgressIndicatorSession();
-
-            if (cloudManager.Session == null) // Creates a new session if one does not exist
-                await cloudManager.CreateSessionAsync();
-
-            // Starts the session if not already started
-            await cloudManager.StartSessionAsync();
-
-            Debug.Log($"Trying to find anchors for map {PageManager.MapLocation} with anchor IDs: {string.Join(", ", anchorIds)}");
-            anchorLocateCriteria = new AnchorLocateCriteria
-            {
-                Identifiers = anchorIds.ToArray()
-            };
-
-            // Start watching for Anchors
-            if (cloudManager != null && cloudManager.Session != null)
-                currentWatcher = cloudManager.Session.CreateWatcher(anchorLocateCriteria);
-            else
-            {
-                Debug.Log("Attempt to create watcher failed, no session exists");
-                currentWatcher = null;
-            }
-
-            GameObject[] nodes = GameObject.FindGameObjectsWithTag("Node");
-
-            Debug.Log($"The amount of Anchor IDs is: {anchorIds.Count}");
-            debugSlate.SetActive(true);
-            textMeshPro.text = $"The amount of nodes is: {nodes.Length}";
-
             
 
             //for (int i = 0; i < nodes.Length; i++)
