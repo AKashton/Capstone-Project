@@ -1156,7 +1156,7 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
       nextpointNumber: 0
-      verticalOffset: 0.25
+      verticalOffset: 0
   - mapLocation: ADSAIL2
     pointsOfInterest:
     - nodeType: 3
@@ -1188,6 +1188,28 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0.25
+    - nodeType: 0
+      nodeSprites:
+      - {fileID: 21300000, guid: fa930e8995ce0ac41a47e2b84d80f872, type: 3}
+      - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
+      - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
+      nextpointNumber: 2
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: -0.1
+  - mapLocation: EIB
+    pointsOfInterest:
+    - nodeType: 0
+      nodeSprites:
+      - {fileID: 21300000, guid: 06dea2540f2a13043b4d7c9137848e52, type: 3}
+      - {fileID: 21300000, guid: 2ccc786f2f01ac243b1ee7fc7b84e402, type: 3}
+      - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
+      - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
+      nextpointNumber: 2
       verticalOffset: 0
     - nodeType: 0
       nodeSprites:
@@ -1195,6 +1217,91 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
       - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
+      verticalOffset: 0
+    - nodeType: 3
+      nodeSprites:
+      - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
+      nextpointNumber: 0
       verticalOffset: 0
     - nodeType: 3
       nodeSprites:
@@ -5196,6 +5303,8 @@ MonoBehaviour:
     - m_Text: ADSAIL2
       m_Image: {fileID: 0}
     - m_Text: ADSAIL3
+      m_Image: {fileID: 0}
+    - m_Text: EIB
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
