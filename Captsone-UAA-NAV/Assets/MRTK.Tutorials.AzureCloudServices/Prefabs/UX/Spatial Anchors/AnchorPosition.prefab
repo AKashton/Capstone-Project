@@ -201,6 +201,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectCard: {fileID: 5685293582271029138, guid: 52d042fdbe3103e4181d4f0302b101ea, type: 3}
   spriteRenderer: {fileID: 2579912958140673813}
+  orbIndicator: {fileID: 467707958512071507}
+  engageButton: {fileID: 6803329964561858638}
+  advanceButton: {fileID: 7328537238799031950}
 --- !u!1 &3220184413888489922
 GameObject:
   m_ObjectHideFlags: 0

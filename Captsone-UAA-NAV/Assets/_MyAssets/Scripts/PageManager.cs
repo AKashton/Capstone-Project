@@ -10,7 +10,7 @@ public class PageManager : MonoBehaviour
     [System.Serializable]
     public class PointOfInterest
     {
-        public enum nodeTypes { IMAGE, TEXT, GAME1, GAME2, GAME3, CONNECTING }
+        public enum nodeTypes { IMAGE, TEXT, GAME1, GAME2, GAME3, CONNECTING, NULL }
         public nodeTypes nodeType;
         public List<Sprite> nodeSprites;
         public string nextpointNumber;

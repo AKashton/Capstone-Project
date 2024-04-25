@@ -20,6 +20,8 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         [SerializeField] ObjectCardViewController objectCard = default;
         [SerializeField] SpriteRenderer spriteRenderer;
+        [SerializeField] MeshRenderer orbIndicator;
+        [SerializeField] GameObject engageButton, advanceButton;
 
         TrackedObject trackedObject;
         PageManager pageManager;
@@ -69,13 +71,18 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                     // Set default text
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.CONNECTING)
+                {
                     spriteRenderer.enabled = false;
+                    engageButton.SetActive(false);
+                }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
                     spriteRenderer.sprite = pageManager.GetGameSprite(0);
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
                     spriteRenderer.sprite = pageManager.GetGameSprite(1);
+                else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.NULL)
+                    gameObject.SetActive(false);
                 else
-                    spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
+                    spriteRenderer.sprite = pageManager.GetGameSprite(0);
 
                 objectCard.Init(trackedObject);
             }

@@ -297,7 +297,7 @@ MonoBehaviour:
   transformOverride: {fileID: 0}
   additionalOffset: {x: 0, y: -0.1, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 1
+  updateSolvers: 0
 --- !u!114 &1900591945167821201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,9 +358,9 @@ MonoBehaviour:
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
   pivotAxis: 7
-  minDistance: 1
+  minDistance: 3
   maxDistance: 3
-  defaultDistance: 2
+  defaultDistance: 3
   maxViewHorizontalDegrees: 0
   maxViewVerticalDegrees: 0
   reorientWhenOutsideParameters: 0
