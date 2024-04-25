@@ -63,6 +63,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 {
                     spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
                     spriteRenderer.gameObject.transform.position += pointOfInterest.verticalOffset * Vector3.up;
+
+                    if (pointOfInterest.nodeSprites.Count == 1)
+                        engageButton.SetActive(false);
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
                 {
@@ -74,6 +77,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 {
                     spriteRenderer.enabled = false;
                     engageButton.SetActive(false);
+                    advanceButton.SetActive(false);
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
                     spriteRenderer.sprite = pageManager.GetGameSprite(0);
@@ -101,7 +105,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
                 pageManager.EnableGazeGame();
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
-                pageManager.EnablePuzzleGame(transform.position);
+                pageManager.EnablePuzzleGame(transform.position, transform.forward);
             
         }
 

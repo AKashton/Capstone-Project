@@ -347,8 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateLinkedTransform: 0
-  moveLerpTime: 0.01
-  rotateLerpTime: 0.01
+  moveLerpTime: 0.1
+  rotateLerpTime: 0.1
   scaleLerpTime: 0
   maintainScaleOnInitialization: 1
   smoothing: 1
@@ -358,10 +358,10 @@ MonoBehaviour:
   faceUserDefinedTargetTransform: 0
   targetToFace: {fileID: 0}
   pivotAxis: 7
-  minDistance: 3
-  maxDistance: 3
-  defaultDistance: 3
-  maxViewHorizontalDegrees: 0
+  minDistance: 2
+  maxDistance: 2
+  defaultDistance: 2
+  maxViewHorizontalDegrees: 15
   maxViewVerticalDegrees: 0
   reorientWhenOutsideParameters: 0
   orientToControllerDeadZoneDegrees: 60

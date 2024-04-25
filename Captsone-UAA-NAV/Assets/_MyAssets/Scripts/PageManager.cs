@@ -34,7 +34,7 @@ public class PageManager : MonoBehaviour
     [SerializeField] TMP_Dropdown locationDropdown;
 
     GameObject instantiatedGame;
-    Vector3 spawnedLocation;
+    Vector3 spawnedLocation, spawnedRotation;
 
     public void ActivateController(bool input)
     {
@@ -52,17 +52,20 @@ public class PageManager : MonoBehaviour
         wolfGazeGame.SetActive(true);
     }
 
-    public void EnablePuzzleGame(Vector3 spawnLocation)
+    public void EnablePuzzleGame(Vector3 spawnLocation, Vector3 spawnRotation)
     {
         spawnedLocation = spawnLocation;
+        spawnedRotation = spawnRotation;
+
         rootMenu.SetActive(false);
         instantiatedGame = Instantiate(puzzleGame, spawnLocation, Quaternion.identity);
+        instantiatedGame.transform.LookAt(spawnRotation);
     }
 
     public void RenewPuzzleGame()
     {
         Destroy(instantiatedGame);
-        EnablePuzzleGame(spawnedLocation);
+        EnablePuzzleGame(spawnedLocation, spawnedRotation);
     }
 
     public void QuitPuzzleGame()
