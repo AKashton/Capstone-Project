@@ -2665,6 +2665,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
+      propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[10].verticalOffset
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
+      propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[16].verticalOffset
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[2].nextpointNumber
       value: 3
       objectReference: {fileID: 0}
