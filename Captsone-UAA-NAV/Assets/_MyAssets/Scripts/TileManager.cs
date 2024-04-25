@@ -30,7 +30,7 @@ public class TileManager : MonoBehaviour
 
         for (int i = 0; i < dimension * dimension; i++)
         {
-            Vector3 tileLocation = startTransform.position + new Vector3((float)(i % dimension) / 5, -(float)(i / dimension) / 5, -0.05f);
+            Vector3 tileLocation = startTransform.position + new Vector3((float)(i % dimension) / 6.2f, -(float)(i / dimension) / 6.2f, -0.02f);
             GameObject newTile = Instantiate(tile, tileLocation, Quaternion.identity, holder.transform);
 
             tiles.Add(newTile);

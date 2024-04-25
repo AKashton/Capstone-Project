@@ -33,6 +33,8 @@ public class PageManager : MonoBehaviour
     [SerializeField] GameObject rootMenu;
     [SerializeField] TMP_Dropdown locationDropdown;
 
+    GameObject instantiatedGame;
+
     public void ActivateController(bool input)
     {
         objectController.SetActive(input);
@@ -52,7 +54,18 @@ public class PageManager : MonoBehaviour
     public void EnablePuzzleGame()
     {
         rootMenu.SetActive(false);
-        puzzleGame.SetActive(true);
+        instantiatedGame = Instantiate(puzzleGame);
+    }
+
+    public void RenewPuzzleGame()
+    {
+        Destroy(instantiatedGame);
+        EnablePuzzleGame();
+    }
+
+    public void QuitPuzzleGame()
+    {
+        Destroy(instantiatedGame);
     }
 
     public MRTK.Tutorials.AzureCloudServices.Scripts.Domain.TrackedObject GetTrackedObject(int index)
