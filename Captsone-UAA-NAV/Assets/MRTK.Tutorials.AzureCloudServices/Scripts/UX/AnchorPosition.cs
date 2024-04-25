@@ -100,9 +100,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
         public void FindNextPosition()
         {
-            TrackedObject nextObject;
-
-            nextObject = pageManager.GetTrackedObject(int.Parse(pointOfInterest.nextpointNumber));
+            TrackedObject nextObject = pageManager.GetTrackedObject(int.Parse(pointOfInterest.nextpointNumber));
 
             if (nextObject == null)
                 return;

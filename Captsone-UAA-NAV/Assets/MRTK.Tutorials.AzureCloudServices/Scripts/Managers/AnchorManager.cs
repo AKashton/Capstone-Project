@@ -341,14 +341,9 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.Managers
                     indicator.gameObject.AddComponent<CloudNativeAnchor>().CloudToNative(tempCloudAnchor);
                 }
 
+                    activeAnchors.Add(indicator.anchorID, indicator);
                     indicator.GetTrackedSource();
-                /*
-                    TrackedObject tempTrackedObject = await dataManager.FindTrackedObjectById(tempCloudAnchor.Identifier);
-
-                    indicator.Init(tempTrackedObject);
-                    anchorArrowGuide.SetTargetObject(indicator.transform);
-                    activeAnchors.Add(tempTrackedObject.SpatialAnchorId, indicator);
-                */
+                
                     // Notify subscribers
                     OnFindAnchorSucceeded?.Invoke(this, EventArgs.Empty);
                     //currentWatcher?.Stop();

@@ -1187,8 +1187,8 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 2ccc786f2f01ac243b1ee7fc7b84e402, type: 3}
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
-      nextpointNumber: 2
-      verticalOffset: 0.25
+      nextpointNumber: 1
+      verticalOffset: 0.19
     - nodeType: 0
       nodeSprites:
       - {fileID: 21300000, guid: fa930e8995ce0ac41a47e2b84d80f872, type: 3}
