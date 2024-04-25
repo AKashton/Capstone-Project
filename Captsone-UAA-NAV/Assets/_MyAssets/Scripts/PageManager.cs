@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using MixedReality.Toolkit.SpatialManipulation;
 
 public class PageManager : MonoBehaviour
 {
@@ -52,20 +53,21 @@ public class PageManager : MonoBehaviour
         wolfGazeGame.SetActive(true);
     }
 
-    public void EnablePuzzleGame(Vector3 spawnLocation, Vector3 spawnRotation)
+    public void EnablePuzzleGame(Vector3 spawnLocation)
     {
         spawnedLocation = spawnLocation;
-        spawnedRotation = spawnRotation;
+        //spawnedRotation = spawnRotation;
 
         rootMenu.SetActive(false);
         instantiatedGame = Instantiate(puzzleGame, spawnLocation, Quaternion.identity);
-        instantiatedGame.GetComponent<TileManager>().GetRootObject().transform.LookAt(spawnRotation);
+        instantiatedGame.GetComponent<TileManager>().gameObject.GetComponent<SolverHandler>().UpdateSolvers = true;
+        //instantiatedGame.GetComponent<TileManager>().transform.LookAt(Camera.main.transform);
     }
 
     public void RenewPuzzleGame()
     {
         Destroy(instantiatedGame);
-        EnablePuzzleGame(spawnedLocation, spawnedRotation);
+        EnablePuzzleGame(spawnedLocation);
     }
 
     public void QuitPuzzleGame()

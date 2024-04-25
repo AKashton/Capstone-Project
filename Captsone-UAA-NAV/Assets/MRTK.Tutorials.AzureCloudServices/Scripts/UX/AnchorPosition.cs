@@ -105,7 +105,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME1)
                 pageManager.EnableGazeGame();
             else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.GAME2)
-                pageManager.EnablePuzzleGame(transform.position, transform.forward);
+                pageManager.EnablePuzzleGame(transform.position);
             
         }
 

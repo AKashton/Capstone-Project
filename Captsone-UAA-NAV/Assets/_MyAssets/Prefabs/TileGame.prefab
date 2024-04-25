@@ -297,7 +297,7 @@ MonoBehaviour:
   transformOverride: {fileID: 0}
   additionalOffset: {x: 0, y: -0.1, z: 0}
   additionalRotation: {x: 0, y: 0, z: 0}
-  updateSolvers: 0
+  updateSolvers: 1
 --- !u!114 &1900591945167821201
 MonoBehaviour:
   m_ObjectHideFlags: 0
