@@ -60,7 +60,7 @@ public class PageManager : MonoBehaviour
 
         rootMenu.SetActive(false);
         instantiatedGame = Instantiate(puzzleGame, spawnLocation, Quaternion.identity);
-        instantiatedGame.GetComponent<TileManager>().gameObject.GetComponent<SolverHandler>().UpdateSolvers = true;
+        instantiatedGame.GetComponent<TileManager>().gameObject.GetComponent<SolverHandler>().UpdateSolvers = false;
         //instantiatedGame.GetComponent<TileManager>().transform.LookAt(Camera.main.transform);
     }
 
