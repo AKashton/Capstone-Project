@@ -59,7 +59,7 @@ public class PageManager : MonoBehaviour
 
         rootMenu.SetActive(false);
         instantiatedGame = Instantiate(puzzleGame, spawnLocation, Quaternion.identity);
-        instantiatedGame.transform.LookAt(spawnRotation);
+        instantiatedGame.GetComponent<TileManager>().GetRootObject().transform.LookAt(spawnRotation);
     }
 
     public void RenewPuzzleGame()

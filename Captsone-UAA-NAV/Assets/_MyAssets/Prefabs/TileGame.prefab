@@ -313,6 +313,7 @@ MonoBehaviour:
   tile: {fileID: 2655884894557485399, guid: 604e39522eb470346a318fdba9b9c86f, type: 3}
   tileHolder: {fileID: 553320185285568902, guid: 9265702df1bed634fb94949886f3fce1, type: 3}
   replaySlate: {fileID: 2987552768947416620}
+  rootObject: {fileID: 0}
   dimension: 4
   tileSprites:
   - {fileID: -1366541972, guid: 4f16ed11d72119a42a5c9dc9d304e37e, type: 3}
@@ -361,7 +362,7 @@ MonoBehaviour:
   minDistance: 2
   maxDistance: 2
   defaultDistance: 2
-  maxViewHorizontalDegrees: 15
+  maxViewHorizontalDegrees: 30
   maxViewVerticalDegrees: 0
   reorientWhenOutsideParameters: 0
   orientToControllerDeadZoneDegrees: 60
@@ -860,6 +861,7 @@ MonoBehaviour:
   tile: {fileID: 2655884894557485399, guid: 604e39522eb470346a318fdba9b9c86f, type: 3}
   tileHolder: {fileID: 553320185285568902, guid: 9265702df1bed634fb94949886f3fce1, type: 3}
   replaySlate: {fileID: 2987552768947416620}
+  rootObject: {fileID: 0}
   dimension: 4
   tileSprites:
   - {fileID: -1366541972, guid: 4f16ed11d72119a42a5c9dc9d304e37e, type: 3}
@@ -974,7 +976,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: maxDistance
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: minDistance
@@ -990,7 +992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: defaultDistance
-      value: 0.75
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: maxViewVerticalDegrees
@@ -1912,7 +1914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: maxDistance
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: minDistance
@@ -1928,7 +1930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: defaultDistance
-      value: 0.75
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 5833515241198981648, guid: 2c4cecf25adbc2f4c88bc2752a9c3264, type: 3}
       propertyPath: maxViewVerticalDegrees

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-    [SerializeField] GameObject tile, tileHolder, replaySlate;
+    [SerializeField] GameObject tile, tileHolder, replaySlate, rootObject;
     [SerializeField] int dimension = 4;
     [SerializeField] List<Sprite> tileSprites;
     [SerializeField] Transform emptyTransform, startTransform;
@@ -204,5 +204,10 @@ public class TileManager : MonoBehaviour
     public void TogglePin()
     {
         solverHandler.UpdateSolvers = !solverHandler.UpdateSolvers;
+    }
+
+    public GameObject GetRootObject()
+    {
+        return rootObject;
     }
 }
