@@ -43,7 +43,7 @@ public class TileManager : MonoBehaviour
         lastTileSprite = tiles[dimension * dimension - 1].GetComponent<SpriteRenderer>();
         lastTileSprite.color = Color.black;
 
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (!ScrambleTiles())
                 break;

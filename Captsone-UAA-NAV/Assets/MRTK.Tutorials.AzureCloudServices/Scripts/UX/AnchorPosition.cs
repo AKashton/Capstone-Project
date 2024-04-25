@@ -61,11 +61,19 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
 
                 if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.IMAGE)
                 {
-                    spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
-                    spriteRenderer.gameObject.transform.position += pointOfInterest.verticalOffset * Vector3.up;
-
-                    if (pointOfInterest.nodeSprites.Count == 1)
+                    if (pointOfInterest.nodeSprites.Count == 0)
+                    {
+                        spriteRenderer.sprite = pageManager.GetGameSprite(0);
                         engageButton.SetActive(false);
+                    }
+                    else
+                    {
+                        spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
+                        spriteRenderer.gameObject.transform.position += pointOfInterest.verticalOffset * Vector3.up;
+
+                        if (pointOfInterest.nodeSprites.Count == 1)
+                            engageButton.SetActive(false);
+                    }
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
                 {
