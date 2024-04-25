@@ -60,7 +60,7 @@ namespace MRTK.Tutorials.AzureCloudServices.Scripts.UX
                 if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.IMAGE)
                 {
                     spriteRenderer.sprite = pointOfInterest.nodeSprites[0];
-                    spriteRenderer.transform.position += pointOfInterest.verticalOffset * Vector3.up;
+                    spriteRenderer.gameObject.transform.position += pointOfInterest.verticalOffset * Vector3.up;
                 }
                 else if (pointOfInterest.nodeType == PageManager.PointOfInterest.nodeTypes.TEXT)
                 {
