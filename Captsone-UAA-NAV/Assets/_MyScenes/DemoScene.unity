@@ -1143,10 +1143,12 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
       - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 3
       nodeSprites:
       - {fileID: 21300000, guid: 41516fb90b1a29f46967adfc8f5d1a85, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 0
       nodeSprites:
       - {fileID: 21300000, guid: 06dea2540f2a13043b4d7c9137848e52, type: 3}
@@ -1154,12 +1156,14 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
       nextpointNumber: 0
+      verticalOffset: 0.25
   - mapLocation: ADSAIL2
     pointsOfInterest:
     - nodeType: 3
       nodeSprites:
       - {fileID: 21300000, guid: 41516fb90b1a29f46967adfc8f5d1a85, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 0
       nodeSprites:
       - {fileID: 21300000, guid: 06dea2540f2a13043b4d7c9137848e52, type: 3}
@@ -1167,12 +1171,14 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 0
       nodeSprites:
       - {fileID: 21300000, guid: fa930e8995ce0ac41a47e2b84d80f872, type: 3}
       - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
       - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
       nextpointNumber: 0
+      verticalOffset: 0
   - mapLocation: ADSAIL3
     pointsOfInterest:
     - nodeType: 0
@@ -1182,16 +1188,19 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 3957b2c880b103343baea08969583f0d, type: 3}
       - {fileID: 21300000, guid: 97e7e18703a2632459b3d92698511a40, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 0
       nodeSprites:
       - {fileID: 21300000, guid: fa930e8995ce0ac41a47e2b84d80f872, type: 3}
       - {fileID: 21300000, guid: 43a50a0476287b6438e8874ff9e76971, type: 3}
       - {fileID: 21300000, guid: a3aada8e71b208b4d903d7a5aa57ece5, type: 3}
       nextpointNumber: 2
+      verticalOffset: 0
     - nodeType: 3
       nodeSprites:
       - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
       nextpointNumber: 0
+      verticalOffset: 0
   gameSprites:
   - {fileID: 21300000, guid: 1610a279d2b43f94491335b084f15a7f, type: 3}
   - {fileID: 21300000, guid: 41516fb90b1a29f46967adfc8f5d1a85, type: 3}
@@ -14412,7 +14421,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1928610761715523073, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1753475313340599156, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 5177926596098688136, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1481580467649709578, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 6453011803846222935, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 433361805906013099, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 9127220155093258684, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 2388119535263243840, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 8185840457993287777, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3321363808393508765, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 3cfb4781d39ef0745bbea03a41b42961, type: 3}
 --- !u!82 &7029363829724193495
 AudioSource:

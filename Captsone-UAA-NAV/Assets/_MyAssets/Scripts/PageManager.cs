@@ -14,6 +14,7 @@ public class PageManager : MonoBehaviour
         public nodeTypes nodeType;
         public List<Sprite> nodeSprites;
         public string nextpointNumber;
+        public float verticalOffset;
     }
 
     [System.Serializable]
