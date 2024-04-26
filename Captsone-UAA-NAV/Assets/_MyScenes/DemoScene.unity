@@ -2724,11 +2724,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[2].nodeType
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[3].nodeType
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[4].nodeType
@@ -2736,7 +2736,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[5].nodeType
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[6].nodeType
@@ -2876,7 +2876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[5].nextpointNumber
-      value: 4
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 868103614572297893, guid: 5bb3112ebadda3040bdf41fa5dd95c9a, type: 3}
       propertyPath: locations.Array.data[3].pointsOfInterest.Array.data[6].nextpointNumber
